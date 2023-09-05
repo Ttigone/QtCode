@@ -1,0 +1,21 @@
+# ninja log v5
+2	943	7156262560820835	QtCode_autogen/timestamp	6a3b484f6f5dbe6a
+2	943	7156262560820835	QtCode_autogen/mocs_compilation.cpp	6a3b484f6f5dbe6a
+2	943	7156262560820835	F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/timestamp	6a3b484f6f5dbe6a
+2	943	7156262560820835	F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/mocs_compilation.cpp	6a3b484f6f5dbe6a
+955	3076	7156262582996036	CMakeFiles/QtCode.dir/main.cpp.obj	b7c9154419787ff8
+944	3218	7156262584637971	CMakeFiles/QtCode.dir/QtCode_autogen/mocs_compilation.cpp.obj	6939c8493a0c896e
+967	4452	7156262596973224	CMakeFiles/QtCode.dir/qcode.cpp.obj	9ad999869dd133b4
+6	635	7156269329121046	QtCode_autogen/timestamp	6a3b484f6f5dbe6a
+6	635	7156269329121046	QtCode_autogen/mocs_compilation.cpp	6a3b484f6f5dbe6a
+6	635	7156269329121046	F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/timestamp	6a3b484f6f5dbe6a
+6	635	7156269329121046	F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/mocs_compilation.cpp	6a3b484f6f5dbe6a
+643	2354	7156269347197754	CMakeFiles/QtCode.dir/QtCode_autogen/mocs_compilation.cpp.obj	6939c8493a0c896e
+683	3333	7156269356981241	CMakeFiles/QtCode.dir/qcode.cpp.obj	9ad999869dd133b4
+5	243	7156269549027671	QtCode_autogen/timestamp	6a3b484f6f5dbe6a
+5	243	7156269549027671	QtCode_autogen/mocs_compilation.cpp	6a3b484f6f5dbe6a
+5	243	7156269549027671	F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/timestamp	6a3b484f6f5dbe6a
+5	243	7156269549027671	F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/mocs_compilation.cpp	6a3b484f6f5dbe6a
+246	2799	7156269574605102	CMakeFiles/QtCode.dir/qcode.cpp.obj	9ad999869dd133b4
+257	2946	7156269576064265	CMakeFiles/QtCode.dir/titlebar.cpp.obj	48d28a8057e27e8e
+2947	3234	7156269578700941	QtCode.exe	9c4bbf319de8fa53

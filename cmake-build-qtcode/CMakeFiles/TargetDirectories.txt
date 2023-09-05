@@ -1,0 +1,9 @@
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/QtCode.dir
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/edit_cache.dir
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/rebuild_cache.dir
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/list_install_components.dir
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/install.dir
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/install/local.dir
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/install/strip.dir
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/QtCode_autogen_timestamp_deps.dir
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/QtCode_autogen.dir
