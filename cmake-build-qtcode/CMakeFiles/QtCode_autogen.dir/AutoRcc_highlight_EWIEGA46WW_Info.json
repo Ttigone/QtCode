@@ -1,0 +1,19 @@
+{
+	"BUILD_DIR" : "F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen",
+	"CMAKE_BINARY_DIR" : "F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode",
+	"CMAKE_CURRENT_BINARY_DIR" : "F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode",
+	"CMAKE_CURRENT_SOURCE_DIR" : "F:/Qt-project/N-QtCode/QtCode",
+	"CMAKE_SOURCE_DIR" : "F:/Qt-project/N-QtCode/QtCode",
+	"INCLUDE_DIR" : "F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/include",
+	"INPUTS" : [ "F:/Qt-project/N-QtCode/QtCode/config/keywords.txt" ],
+	"LOCK_FILE" : "F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/QtCode_autogen.dir/AutoRcc_highlight_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "highlight" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_highlight.cpp",
+	"RCC_EXECUTABLE" : "D:/qt/qt6/6.4.3/mingw_64/./bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/QtCode_autogen.dir/AutoRcc_highlight_EWIEGA46WW_Used.txt",
+	"SOURCE" : "F:/Qt-project/N-QtCode/QtCode/highlight.qrc",
+	"VERBOSITY" : 0
+}

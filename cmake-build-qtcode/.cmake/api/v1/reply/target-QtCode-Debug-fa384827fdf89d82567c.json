@@ -75,13 +75,13 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 63,
+				"line" : 67,
 				"parent" : 0
 			},
 			{
 				"command" : 5,
 				"file" : 1,
-				"line" : 46,
+				"line" : 50,
 				"parent" : 0
 			},
 			{
@@ -365,7 +365,11 @@
 				0,
 				1,
 				2,
-				6
+				6,
+				9,
+				11,
+				15,
+				16
 			]
 		}
 	],
@@ -484,7 +488,11 @@
 				0,
 				1,
 				2,
-				6
+				6,
+				9,
+				11,
+				15,
+				16
 			]
 		},
 		{
@@ -493,7 +501,9 @@
 			[
 				3,
 				5,
-				7
+				8,
+				10,
+				13
 			]
 		},
 		{
@@ -501,14 +511,18 @@
 			"sourceIndexes" : 
 			[
 				4,
-				8
+				7,
+				12,
+				14
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				9
+				17,
+				18,
+				19
 			]
 		}
 	],
@@ -555,6 +569,38 @@
 			"sourceGroupIndex" : 0
 		},
 		{
+			"backtrace" : 4,
+			"path" : "images.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 4,
+			"path" : "codeedit.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "codeedit.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "highlighter.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "highlighter.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "highlight.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "cmake-build-qtcode/QtCode_autogen/include/ui_qcode.h",
@@ -568,8 +614,34 @@
 		},
 		{
 			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/qrc_images.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/qrc_highlight.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "cmake-build-qtcode/QtCode_autogen/timestamp.rule",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/qrc_images.cpp.rule",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/qrc_highlight.cpp.rule",
 			"sourceGroupIndex" : 3
 		}
 	],

@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-25314c1ad0acb7434691.json",
+					"jsonFile" : "directory-.-Debug-95b22d568d10362f14ea.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "QtCode::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-QtCode-Debug-b3313594e2a771d4e4ff.json",
+					"jsonFile" : "target-QtCode-Debug-fa384827fdf89d82567c.json",
 					"name" : "QtCode",
 					"projectIndex" : 0
 				},

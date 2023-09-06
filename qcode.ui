@@ -16,20 +16,15 @@
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>0</y>
+     <x>40</x>
+     <y>80</y>
      <width>441</width>
      <height>261</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>-1</number>
    </property>
-   <widget class="QWidget" name="tab">
-    <attribute name="title">
-     <string>Tab 1</string>
-    </attribute>
-   </widget>
   </widget>
  </widget>
  <resources/>
