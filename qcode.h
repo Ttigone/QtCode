@@ -2,8 +2,10 @@
 #define QCODE_H
 
 #include <QWidget>
+#include <qtabwidget.h>
 
 class TitleBar;
+class FileTree;
 
 
 QT_BEGIN_NAMESPACE
@@ -96,7 +98,7 @@ private slots:
     void aboutTriggered();           // 处理 关于界面
 
 
-    void on_tabWidget_tabCloseRequested(int index);  // 处理 关闭标签页
+    void tabWidgetTabCloseRequested(int index);  // 处理 关闭标签页
 
 signals:
 
@@ -107,6 +109,10 @@ private:
     Ui::QCode *ui;
 
     TitleBar *titleBar;      // 标题栏
+
+    FileTree *fileTree;
+
+    QTabWidget *tabWidget;
 
     int borderWidth;
 

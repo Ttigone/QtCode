@@ -19,7 +19,9 @@ TitleBar::TitleBar(QWidget *parent)
 {
     setFixedHeight(23);  // 高度设定固定大小
 
-    setAttribute(Qt::WA_StyledBackground);
+//    setAttribute(Qt::WA_StyledBackground);
+
+//    setStyleSheet("background-color: rgba(13, 13, 13, 50);");
 
     // 设置菜单栏左侧
     initAllAction();
@@ -46,27 +48,31 @@ TitleBar::~TitleBar()
 void TitleBar::initIcon()
 {
     iconLabel = new QLabel(this);    // 有 bug
-    //    m_pTitleLabel = new QLabel(this);
-    //    m_pTitleLabel->setObjectName("whiteLabel");
     //初始化图标Label
     iconLabel->setFixedSize(20, 20);
     iconLabel->setScaledContents(true);
     QPixmap pixmap(":/images/qc.png");
     iconLabel->setPixmap(pixmap);
 
-    // 设置文本
-    //    m_pTitleLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 }
 
 void TitleBar::initFile()
 {
-    file = new QAction("File", this);
-
-    file->setObjectName("File");
     // 创建专属菜单
-    fileMenu = new QMenu(this);
-    // 设置专属菜单
-    file->setMenu(fileMenu);
+    fileMenu = new QMenu("File", this);
+    fileMenu->setStyleSheet(
+                            "QMenu::item { background-color: rgba(13, 13, 13, 50); }"
+//                            "QMenu { border: 0px; margin: 0px; padding: 10px; }"
+                            "QMenu::separator { background-color:rgba(13, 13, 13, 50); }"
+//                            "QMenu::icon { width: 0px; }"  // 覆盖了父亲的样式表设置  没有用
+                            "QMenu::item { padding-left: 10px; }" // 单独设置有效  // 自动把 icon 给去掉了
+                            "QMenu { border: 0px; margin: 0px; }"
+//                            "QMenu { margin: 0px; }"
+//                            "QMenu { border: 0px; }"
+//                            "QMenu::item:hover { background-color: red; }"
+                            "QMenu::item:hover:checked {color: red; }"
+    );  // 设置样式表只能出现一次  // 能够去掉边界   // 先后顺序不影响
+
     // 新建 第一部分 QAction
     newTextFile = new QAction("New Text File", this);
     newFile = new QAction("New File...", this);
@@ -133,11 +139,13 @@ void TitleBar::initFile()
 
 void TitleBar::initEdit()
 {
-    edit = new QAction("Edit", this);
-    edit->setObjectName("Edit");
+    editMenu = new QMenu("Edit", this);
+    editMenu->setStyleSheet(
+//            "QMenu:: icon { width: 0px; }"
+            "QMenu::item { padding-left: 0px; }" // 单独设置有效
+            "QMenu::item:hover { background-color: red; }"
+    );
 
-    editMenu = new QMenu(this);
-    edit->setMenu(editMenu);
     undo = new QAction("Uodo", this);
     redo = new QAction("Redo", this);
     editMenu->addAction(undo);
@@ -158,34 +166,48 @@ void TitleBar::initEdit()
 
 void TitleBar::initSelection()
 {
-    selection = new QAction("Selection", this);
-    selection->setObjectName("Selection");
-
-    selectionMenu = new QMenu(this);
-    selection->setMenu(selectionMenu);
+    selectionMenu = new QMenu("Selection", this);
+//    selectionMenu->setStyleSheet("QMenu::icon { width: 0px; }");
+    selectionMenu->setStyleSheet(
+//            "QMenu::item { "
+//            "    background-color: transparent; "
+//            "    border: none; "
+//            "    padding: 3px 10px; "
+//            "} "
+            "QMenu::item:hover { "
+            "    background-color: interlinear(x1:0, y1:0, x2:0, y2:1, stop:0 transparent, stop:0.85 transparent, stop:0.86 red , stop:1 yellow); "
+            "}"
+    );
     selectAll = new QAction("Select All");
     selectionMenu->addAction(selectAll);
 }
 
 void TitleBar::initView()
 {
-
-    view = new QAction("View", this);
-    view->setObjectName("View");
-
-    viewMenu = new QMenu(this);
-    view->setMenu(viewMenu);
+    viewMenu = new QMenu("View", this);
+//    viewMenu->setStyleSheet("background-color: rgba(13, 13, 13, 50);");
     commandPalette = new QAction("Command Palette...", this);
     viewMenu->addAction(commandPalette);
 }
 
 void TitleBar::initHelp()
 {
-    help = new QAction("Help", this);
-    help->setObjectName("Help");
-
-    helpMenu = new QMenu(this);
-    help->setMenu(helpMenu);
+    helpMenu = new QMenu("Help", this);
+//    helpMenu->setStyleSheet("background-color: rgba(13, 13, 13, 50);");
+//    helpMenu->setStyleSheet(
+//            "QMenu::item { "
+////            "    background-color: transparent; "  // 默认背景颜色  有
+//            "    background-color: green; "  // 默认背景颜色  有
+//            "    border: none; "
+//            "    padding: 3px 10px; "
+//            "} "
+////            "QMenu::item:hover { "
+////            "    background-color: red; "   // 鼠标悬停时的背景颜色
+////            "}"
+//            "QMenu::item:hover { "
+//            "    background-color: interlinear(x1:0, y1:0, x2:0, y2:1, stop:0 black, stop:0.85 green, stop:0.86 red , stop:1 yellow); "
+//            "}"
+//    );
     welcome = new QAction("Welcome", this);
     showAllCommands = new QAction("Show All Commands", this);
     helpMenu->addAction(welcome);
@@ -206,14 +228,31 @@ void TitleBar::initBtn()
     minimizeButton->setIconSize(QSize(30,22));
     minimizeButton->setIcon(QIcon(":/images/minimize.png"));
     minimizeButton->setFlat(true);
+    minimizeButton->setAttribute(Qt::WA_Hover);
+    minimizeButton->setStyleSheet(
+//            "QPushButton:hover { background-color: rgba(13, 13, 13, 128); }"   // 点击才有反应
+            "QPushButton:hover { "
+                "border: 1px #3A3939;"  // 设置了这个才会在鼠标悬浮时显示颜色
+//                "text-align: center;"
+//                "padding: 1px;"
+                "background-color: rgba(13, 13, 13, 50); "
+            "}"
+//            "QPushButton:hover{ color:grey }"   // 点击才有反应
+    );
 
     maximizeButton->setIconSize(QSize(27,22));
     maximizeButton->setIcon(QIcon(":/images/maximize.png"));
     maximizeButton->setFlat(true);
+    maximizeButton->setStyleSheet(
+            "QPushButton:hover { background-color: rgba(13, 13, 13, 50); }"
+    );
 
     closeButton->setIconSize(QSize(27,22));
     closeButton->setIcon(QIcon(":/images/close.png"));
     closeButton->setFlat(true);
+    closeButton->setStyleSheet(
+            "QPushButton:hover { background-color: rgba(13, 13, 13, 50); }"
+    );
 
     //设置窗口部件的名称
     minimizeButton->setObjectName("minimizeButton");
@@ -231,14 +270,20 @@ void TitleBar::initBtn()
 void TitleBar::initMenu()
 {
     menu = new QMenuBar(this);   // 菜单栏
-    // 为菜单栏添加 QAction 控件
-    menu->addAction(file);
-    menu->addAction(edit);
-    menu->addAction(selection);
-    menu->addAction(view);
-    menu->addAction(help);
+    // 为菜单栏添加 QMenu 控件
+    menu->addMenu(fileMenu);
+    menu->addMenu(editMenu);
+    menu->addMenu(selectionMenu);
+    menu->addMenu(viewMenu);
+    menu->addMenu(helpMenu);
 
+//    menu->setStyleSheet("QMenu::item { padding-left: 0px; }");
+//    menu->setStyleSheet("QMenu { border: 0px; margin: 0px; padding: 0px; }");
     menu->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+//    menu->setStyleSheet("QMenu { background-color: #f0f0f0; margin: 0px; }"
+//                        "QMenu::icon { width: 0px; }");
+//    menu->setStyleSheet("QMenu::icon { width: 0px; }");
 }
 
 void TitleBar::initWidget()
@@ -248,7 +293,7 @@ void TitleBar::initWidget()
     layout->addWidget(iconLabel);
     layout->setSpacing(5);             // 间隙
 
-    layout->setSpacing(5);             // 间隙
+//    layout->setSpacing(5);             // 间隙
 
     layout->addWidget(menu);         // 添加菜单栏
 
@@ -347,6 +392,7 @@ void TitleBar::mouseDoubleClickEvent(QMouseEvent *event)
 //进行界面的拖动  [一般情况下，是界面随着标题栏的移动而移动，所以我们将事件写在标题栏中比较合理]
 void TitleBar::mousePressEvent(QMouseEvent *event)
 {
+//    QAbstractButton::mousePressEvent(event);
 #ifdef Q_OS_WIN
     if (ReleaseCapture())
     {

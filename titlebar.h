@@ -42,13 +42,13 @@ public:
 protected:
 
     // 双击标题栏进行界面的最大化/还原
-    virtual void mouseDoubleClickEvent(QMouseEvent *event);
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
 
     // 进行界面的拖动
-    virtual void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) override;   // 会阻碍 btn 的 样式表 hover 事件
 
     // 设置界面标题与图标
-    virtual bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 
 private slots:
@@ -116,12 +116,6 @@ private:
 
     QMenuBar *menu;             // 菜单栏
 
-    // 菜单栏 的 QAction
-    QAction *file;
-    QAction *edit;
-    QAction *selection;
-    QAction *view;
-    QAction *help;
 
     // m_file 下属的 QAction
     QAction *newTextFile;

@@ -161,6 +161,7 @@ QtCode_autogen/timestamp: \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qplaintextedit.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qpushbutton.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qsizepolicy.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtabwidget.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtextedit.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtwidgets-config.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtwidgetsexports.h \
@@ -545,6 +546,8 @@ QtCode_autogen/timestamp: \
   QtCode_autogen/moc_predefs.h \
   F:/Qt-project/N-QtCode/QtCode/codeedit.cpp \
   F:/Qt-project/N-QtCode/QtCode/codeedit.h \
+  F:/Qt-project/N-QtCode/QtCode/filetree.cpp \
+  F:/Qt-project/N-QtCode/QtCode/filetree.h \
   F:/Qt-project/N-QtCode/QtCode/highlight.qrc \
   F:/Qt-project/N-QtCode/QtCode/highlighter.cpp \
   F:/Qt-project/N-QtCode/QtCode/highlighter.h \

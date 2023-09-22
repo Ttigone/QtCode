@@ -1,4 +1,4 @@
-F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_qcode.cpp: F:/Qt-project/N-QtCode/QtCode/qcode.h \
+F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_filetree.cpp: F:/Qt-project/N-QtCode/QtCode/filetree.h \
   F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/moc_predefs.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qalgorithms.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qanystringview.h \
@@ -110,7 +110,6 @@ F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_q
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qwindowdefs_win.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QWidget \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qsizepolicy.h \
-  D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtabwidget.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtwidgets-config.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtwidgetsexports.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtwidgetsglobal.h \

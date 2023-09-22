@@ -286,6 +286,12 @@
 			null
 		],
 		[
+			"F:/Qt-project/N-QtCode/QtCode/filetree.h",
+			"MU",
+			"EWIEGA46WW/moc_filetree.cpp",
+			null
+		],
+		[
 			"F:/Qt-project/N-QtCode/QtCode/highlighter.h",
 			"MU",
 			"EWIEGA46WW/moc_highlighter.cpp",
@@ -374,6 +380,7 @@
 	"SOURCES" : 
 	[
 		[ "F:/Qt-project/N-QtCode/QtCode/codeedit.cpp", "MU", null ],
+		[ "F:/Qt-project/N-QtCode/QtCode/filetree.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/highlighter.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/main.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/qcode.cpp", "MU", null ],

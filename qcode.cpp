@@ -4,8 +4,13 @@
 
 #include "titlebar.h"
 #include "codeedit.h"
-#include <QVBoxLayout>
+#include "filetree.h"
 
+
+#include <QVBoxLayout>
+#include <QTreeWidget>
+#include <QSizePolicy>
+#include <QSplitter>
 
 //调用WIN API需要用到的头文件与库 [实现缩放]
 #ifdef Q_OS_WIN
@@ -117,7 +122,7 @@ void QCode::initWidget()
 //    setWindowOpacity(0.8);  // 设置透明度
 
     // 设置初始大小
-    resize(1200, 800);
+//    resize(1200, 800);
 
     setAttribute(Qt::WA_StyledBackground);
 
@@ -125,11 +130,15 @@ void QCode::initWidget()
     QIcon windowIcon(":/images/qc.png");
     setWindowIcon(windowIcon);
 
+
+    tabWidget = new QTabWidget(this);
+
+
     // 为主界面窗口设置垂直布局
-    QVBoxLayout *vLayout = new QVBoxLayout(this);
+    QVBoxLayout *vLayout = new QVBoxLayout;
 
     // 自定义标题框
-    titleBar = new TitleBar(this);
+    titleBar = new TitleBar;
     // 安装过滤器
 //    installEventFilter(titleBar);
 
@@ -141,8 +150,97 @@ void QCode::initWidget()
 
     vLayout->setContentsMargins(5, 0, 5, 5);  // left top right bottom 边缘间距像素
 
-    // 添加第二个 widget
-    vLayout->addWidget(ui->tabWidget);
+    // 水平布局
+    QHBoxLayout *hLayout = new QHBoxLayout;
+
+    QVBoxLayout *taskBarView = new QVBoxLayout;       // left bar
+    QLabel *explorer = new QLabel("Explorer");
+    explorer->setStyleSheet("color: rgb(204, 204, 204);");
+
+    QLabel *search = new QLabel("Search");
+    search->setStyleSheet("color: rgb(204, 204, 204);");
+    taskBarView->addWidget(explorer);
+    taskBarView->addWidget(search);
+
+
+
+
+
+    fileTree = new FileTree;
+
+    fileTree->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+    tabWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+
+    fileTree->setMinimumSize(200, 800);
+
+    hLayout->addLayout(taskBarView);
+
+    hLayout->addWidget(fileTree);
+
+    hLayout->addWidget(tabWidget);
+
+
+//    hLayout->addStretch();  // 会导致 fileTree 显示错误
+
+    vLayout->addLayout(hLayout);
+
+
+//    hLayout->setSpacing(1);
+
+//    hLayout->addWidget(tabWidget);   // 覆盖
+
+//    vLayout->addLayout(hLayout);
+
+//    QTreeWidget *treeWidget = new QTreeWidget(this);      // left widget about dict
+//    QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);   // set Policy  useless
+
+
+//    QSplitter *splitter = new QSplitter(Qt::Horizontal);
+
+
+//    treeWidget->setMinimumWidth(150);
+////    treeWidget->setMaximumWidth(900);
+//    treeWidget->setHeaderHidden(true);
+//    treeWidget->setStyleSheet("QTreeWidget{border: 0px solid gray;}");
+
+//    tabWidget->setParent(splitter);
+//    treeWidget->setParent(splitter);
+
+//    splitter->addWidget(fileTree);
+//    splitter->addWidget(tabWidget);
+
+
+//    splitter->setStyleSheet("QSplitter::handle {background-color: rgb(13, 13, 13);}");
+//    splitter->setHandleWidth(0);  // 设置 0 的话，样式表颜色失效
+//    splitter->setStyleSheet("QSplitter::handle { border: 1px solid grey }");
+
+
+
+
+
+
+//    vLayout->addWidget(splitter);        // add to vLayout
+
+//    treeWidget->setSizePolicy(sizePolicy);
+
+//    QList<int> initSizes;
+//    initSizes << 50 << splitter->width() - 10;
+//    splitter->setSizes(initSizes);
+
+
+//    QTreeWidgetItem *item1 = new QTreeWidgetItem(treeWidget, QStringList(QString("item1")));
+//    QTreeWidgetItem *item2 = new QTreeWidgetItem(treeWidget, QStringList(QString("item2")));
+//    QTreeWidgetItem *item3 = new QTreeWidgetItem(treeWidget, QStringList(QString("item3")));
+//    QTreeWidgetItem *item4 = new QTreeWidgetItem(treeWidget, QStringList(QString("item4")));
+
+//    item1->setIcon(0, QIcon(":/images/qc.png"));
+//    item2->setIcon(0, QIcon(":/images/qc.png"));
+//    item3->setIcon(0, QIcon(":/images/qc.png"));
+//    item4->setIcon(0, QIcon(":/images/qc.png"));
+
+//    treeWidget->expandAll();
+
 
     // 应用界面布局
     setLayout(vLayout);
@@ -169,6 +267,11 @@ void QCode::initConnection()
     connect(titleBar, &TitleBar::pasteTriggered, this, &QCode::pasteTriggered);
 
     connect(titleBar, &TitleBar::aboutTriggered, this, &QCode::aboutTriggered);
+
+    connect(tabWidget, &QTabWidget::tabCloseRequested, this, &QCode::tabWidgetTabCloseRequested);
+
+
+
 }
 
 void QCode::saveHistory(QString path)
@@ -230,8 +333,8 @@ void QCode::openRecentFile()
 
     CodeEdit *codeEditor = new CodeEdit(this);
     codeEditor->setPlainText(content_text);
-    ui->tabWidget->addTab(codeEditor, file_name);
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
+    tabWidget->addTab(codeEditor, fileName);
+    tabWidget->setCurrentIndex(tabWidget->count() - 1);
 
     file.close();
 
@@ -278,12 +381,12 @@ void QCode::initRecentMenu()
 
 int QCode::getCurrentTableCount()
 {
-    return ui->tabWidget->count();
+    return tabWidget->count();
 }
 
 void QCode::newTextFileTriggered()
 {
-    ui->tabWidget->addTab(new CodeEdit(this), "Untitled.txt");
+    tabWidget->addTab(new CodeEdit(this), "Untitled.txt");
 }
 
 void QCode::newFileTriggered()
@@ -312,9 +415,9 @@ void QCode::openFileTriggered()
     CodeEdit *code_editor = new CodeEdit(this);
 
     code_editor->setPlainText(content_text);
-    ui->tabWidget->addTab(code_editor, file_name);
+    tabWidget->addTab(code_editor, file_name);
 
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->count() - 1);
+    tabWidget->setCurrentIndex(tabWidget->count() - 1);
 
 
     file.close();
@@ -332,12 +435,12 @@ void QCode::openFolderTriggered()
 void QCode::saveTriggered()
 {
 
-    CodeEdit *codeEditor = (CodeEdit *)ui->tabWidget->currentWidget();
+    CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
 
     if (codeEditor) {
         if (codeEditor->saveFile()) {
             QString fileName = codeEditor->getFileName();
-            ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), fileName);
+            tabWidget->setTabText(tabWidget->currentIndex(), fileName);
             saveHistory(fileName);
             initRecentMenu();
         }
@@ -350,12 +453,12 @@ void QCode::saveAsTriggered()
 {
 
 
-    CodeEdit *codeEditor = (CodeEdit *)ui->tabWidget->currentWidget();
+    CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
 
     if (codeEditor) {
         if (codeEditor->saveAsFile()) {
             QString fileName = codeEditor->getFileName();
-            ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), fileName);
+            tabWidget->setTabText(tabWidget->currentIndex(), fileName);
             saveHistory(fileName);
             initRecentMenu();
         }
@@ -377,7 +480,7 @@ void QCode::closeWindowTriggered()
 
 void QCode::undoTriggered()
 {
-    CodeEdit *codeEditor = (CodeEdit *)ui->tabWidget->currentWidget();
+    CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
     if (codeEditor) {
         codeEditor->undo();
     }
@@ -385,7 +488,7 @@ void QCode::undoTriggered()
 
 void QCode::redoTriggered()
 {
-    CodeEdit *codeEditor = (CodeEdit *)ui->tabWidget->currentWidget();
+    CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
     if (codeEditor) {
         codeEditor->redo();
     }
@@ -393,7 +496,7 @@ void QCode::redoTriggered()
 
 void QCode::cutTriggered()
 {
-    CodeEdit *codeEditor = (CodeEdit *)ui->tabWidget->currentWidget();
+    CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
     if (codeEditor) {
         codeEditor->cut();
     }
@@ -401,7 +504,7 @@ void QCode::cutTriggered()
 
 void QCode::copyTriggered()
 {
-    CodeEdit *codeEditor = (CodeEdit *)ui->tabWidget->currentWidget();
+    CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
     if (codeEditor) {
         codeEditor->copy();
     }
@@ -409,7 +512,7 @@ void QCode::copyTriggered()
 
 void QCode::pasteTriggered()
 {
-    CodeEdit *codeEditor = (CodeEdit *)ui->tabWidget->currentWidget();
+    CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
     if (codeEditor) {
         codeEditor->paste();
     }
@@ -450,9 +553,9 @@ void QCode::aboutTriggered()
     QMessageBox::about(this, "QCode", "乞丐版-vscode");
 }
 
-void QCode::on_tabWidget_tabCloseRequested(int index)
+void QCode::tabWidgetTabCloseRequested(int index)
 {
-    CodeEdit *codeEditor = (CodeEdit *)ui->tabWidget->currentWidget();
+    CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
     if (!codeEditor->checkSaved()) {
         QMessageBox::StandardButton btn = QMessageBox::question(this, "警告", "文件未保存, 是否保存文件", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 
@@ -468,8 +571,8 @@ void QCode::on_tabWidget_tabCloseRequested(int index)
             return;
         }
     }
-//    delete ui->tabWidget->currentWidget();
-    ui->tabWidget->removeTab(index);
+//    delete tabWidget->currentWidget();
+    tabWidget->removeTab(index);
     delete codeEditor;
 }
 
