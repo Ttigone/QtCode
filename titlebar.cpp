@@ -61,7 +61,7 @@ void TitleBar::initFile()
     // 创建专属菜单
     fileMenu = new QMenu("File", this);
     fileMenu->setStyleSheet(
-                            "QMenu::item { background-color: rgba(13, 13, 13, 50); }"
+                            "QMenu::item { background-color: rgba(13, 13, 13, 128); }"
 //                            "QMenu { border: 0px; margin: 0px; padding: 10px; }"
                             "QMenu::separator { background-color:rgba(13, 13, 13, 50); }"
 //                            "QMenu::icon { width: 0px; }"  // 覆盖了父亲的样式表设置  没有用
@@ -70,7 +70,8 @@ void TitleBar::initFile()
 //                            "QMenu { margin: 0px; }"
 //                            "QMenu { border: 0px; }"
 //                            "QMenu::item:hover { background-color: red; }"
-                            "QMenu::item:hover:checked {color: red; }"
+//                            "QMenu::item:hover:checked {color: red; }"
+                            "QMenu::item:selected { background-color: rgba(13, 13, 13, 50); }"    // 选择相应项，底色改变
     );  // 设置样式表只能出现一次  // 能够去掉边界   // 先后顺序不影响
 
     // 新建 第一部分 QAction
@@ -230,28 +231,40 @@ void TitleBar::initBtn()
     minimizeButton->setFlat(true);
     minimizeButton->setAttribute(Qt::WA_Hover);
     minimizeButton->setStyleSheet(
-//            "QPushButton:hover { background-color: rgba(13, 13, 13, 128); }"   // 点击才有反应
-            "QPushButton:hover { "
-                "border: 1px #3A3939;"  // 设置了这个才会在鼠标悬浮时显示颜色
-//                "text-align: center;"
-//                "padding: 1px;"
-                "background-color: rgba(13, 13, 13, 50); "
-            "}"
-//            "QPushButton:hover{ color:grey }"   // 点击才有反应
+        "QPushButton:hover {"
+            "border: 1px #EA2;"  // 设置了这个才会在鼠标悬浮时显示颜色
+            "background-color: rgba(13, 13, 13, 50); "
+        "}"
+        "QPushButton:pressed {"
+            "background-color: rgba(13, 13, 13, 20); "
+        "}"
     );
 
     maximizeButton->setIconSize(QSize(27,22));
     maximizeButton->setIcon(QIcon(":/images/maximize.png"));
     maximizeButton->setFlat(true);
     maximizeButton->setStyleSheet(
-            "QPushButton:hover { background-color: rgba(13, 13, 13, 50); }"
+        "QPushButton:hover {"
+            "border: 1px #EA2;"  // 设置了这个才会在鼠标悬浮时显示颜色
+            "background-color: rgba(13, 13, 13, 50); "
+        "}"
+        "QPushButton:pressed {"
+            "background-color: rgba(13, 13, 13, 20); "
+        "}"
     );
 
     closeButton->setIconSize(QSize(27,22));
     closeButton->setIcon(QIcon(":/images/close.png"));
     closeButton->setFlat(true);
     closeButton->setStyleSheet(
-            "QPushButton:hover { background-color: rgba(13, 13, 13, 50); }"
+            "QPushButton:hover {"
+            "border: 1px #EA2;"  // 设置了这个才会在鼠标悬浮时显示颜色
+            "background-color: rgba(13, 13, 13, 50); "
+            "}"
+
+            "QPushButton:pressed {"
+            "background-color: rgba(13, 13, 13, 20); "
+            "}"
     );
 
     //设置窗口部件的名称

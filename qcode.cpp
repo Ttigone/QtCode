@@ -5,12 +5,15 @@
 #include "titlebar.h"
 #include "codeedit.h"
 #include "filetree.h"
+#include "leftlabel.h"
+
 
 
 #include <QVBoxLayout>
 #include <QTreeWidget>
 #include <QSizePolicy>
 #include <QSplitter>
+#include <QToolTip>
 
 //调用WIN API需要用到的头文件与库 [实现缩放]
 #ifdef Q_OS_WIN
@@ -124,6 +127,9 @@ void QCode::initWidget()
     // 设置初始大小
 //    resize(1200, 800);
 
+//    QToolTip::setShowDelay(10);
+
+
     setAttribute(Qt::WA_StyledBackground);
 
     // 设置标题图标
@@ -154,19 +160,45 @@ void QCode::initWidget()
     QHBoxLayout *hLayout = new QHBoxLayout;
 
     QVBoxLayout *taskBarView = new QVBoxLayout;       // left bar
-    QLabel *explorer = new QLabel("Explorer");
-    explorer->setStyleSheet("color: rgb(204, 204, 204);");
 
-    QLabel *search = new QLabel("Search");
+    LeftLabel *labelList = new LeftLabel();
+
+    //    qDebug() << labelList->getLabel(0);
+
+//    SelfLabel *explorer = labelList->getLabel(0);
+//    explorer->setToolTip("Explorer");
+//    explorer->setMinimumWidth(20);
+//    explorer->setMaximumWidth(31);
+//    explorer->setMaximumHeight(200);
+
+
+    //    qDebug() << explorer;
+    //    qDebug() << explorer->pixmap();
+    //    explorer->setText("1");
+    //    // 最左侧按钮
+    //    QLabel *explorer = new QLabel("Explorer");
+//    explorer->setStyleSheet("color: rgb(204, 204, 204);");
+
+
+
+    SelfLabel *search = labelList->getLabel(1);
+    search->setToolTip("Search");
+    search->setMinimumWidth(20);
+    search->setMaximumWidth(31);
+    search->setMaximumHeight(200);
     search->setStyleSheet("color: rgb(204, 204, 204);");
-    taskBarView->addWidget(explorer);
+//    search->setStyleSheet("color: rgb(204, 204, 204);");
+//    taskBarView->set();
+//    taskBarView->addWidget(explorer);
     taskBarView->addWidget(search);
 
+//    fileTree->setContentsMargins(0, 0 , 0, 0);
 
 
 
 
     fileTree = new FileTree;
+
 
     fileTree->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
@@ -174,7 +206,20 @@ void QCode::initWidget()
 
     fileTree->setMinimumSize(200, 800);
 
+
+//    connect(explorer, &SelfLabel::clicked, [=](){
+//        if (fileTree->isHidden()) {
+//            fileTree->show();
+//        } else {
+//            fileTree->hide();
+//        }
+//    });
+
+
+
     hLayout->addLayout(taskBarView);
+
+    hLayout->setSpacing(1);
 
     hLayout->addWidget(fileTree);
 

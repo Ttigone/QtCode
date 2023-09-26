@@ -96,6 +96,7 @@ QtCode_autogen/timestamp: \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qvarlengtharray.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qversiontagging.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/QKeySequence \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtGui/QMouseEvent \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/QPainter \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/QTransform \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qabstracttextdocumentlayout.h \
@@ -552,9 +553,13 @@ QtCode_autogen/timestamp: \
   F:/Qt-project/N-QtCode/QtCode/highlighter.cpp \
   F:/Qt-project/N-QtCode/QtCode/highlighter.h \
   F:/Qt-project/N-QtCode/QtCode/images.qrc \
+  F:/Qt-project/N-QtCode/QtCode/leftlabel.cpp \
+  F:/Qt-project/N-QtCode/QtCode/leftlabel.h \
   F:/Qt-project/N-QtCode/QtCode/main.cpp \
   F:/Qt-project/N-QtCode/QtCode/qcode.cpp \
   F:/Qt-project/N-QtCode/QtCode/qcode.h \
+  F:/Qt-project/N-QtCode/QtCode/selflabel.cpp \
+  F:/Qt-project/N-QtCode/QtCode/selflabel.h \
   F:/Qt-project/N-QtCode/QtCode/titlebar.cpp \
   F:/Qt-project/N-QtCode/QtCode/titlebar.h \
   G:/JetBrains/CLion\ 2023.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake \

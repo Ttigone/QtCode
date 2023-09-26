@@ -298,9 +298,21 @@
 			null
 		],
 		[
+			"F:/Qt-project/N-QtCode/QtCode/leftlabel.h",
+			"MU",
+			"EWIEGA46WW/moc_leftlabel.cpp",
+			null
+		],
+		[
 			"F:/Qt-project/N-QtCode/QtCode/qcode.h",
 			"MU",
 			"EWIEGA46WW/moc_qcode.cpp",
+			null
+		],
+		[
+			"F:/Qt-project/N-QtCode/QtCode/selflabel.h",
+			"MU",
+			"EWIEGA46WW/moc_selflabel.cpp",
 			null
 		],
 		[
@@ -382,8 +394,10 @@
 		[ "F:/Qt-project/N-QtCode/QtCode/codeedit.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/filetree.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/highlighter.cpp", "MU", null ],
+		[ "F:/Qt-project/N-QtCode/QtCode/leftlabel.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/main.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/qcode.cpp", "MU", null ],
+		[ "F:/Qt-project/N-QtCode/QtCode/selflabel.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/titlebar.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
