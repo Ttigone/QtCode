@@ -7,6 +7,7 @@
 #include "filetree.h"
 #include "leftlabel.h"
 
+#include "searchlabel.h"
 
 
 #include <QVBoxLayout>
@@ -165,11 +166,11 @@ void QCode::initWidget()
 
     //    qDebug() << labelList->getLabel(0);
 
-//    SelfLabel *explorer = labelList->getLabel(0);
+    SelfLabel *explorer = labelList->getLabel(0);
 //    explorer->setToolTip("Explorer");
-//    explorer->setMinimumWidth(20);
-//    explorer->setMaximumWidth(31);
-//    explorer->setMaximumHeight(200);
+    explorer->setMinimumWidth(20);
+    explorer->setMaximumWidth(31);
+    explorer->setMaximumHeight(40);
 
 
     //    qDebug() << explorer;
@@ -181,20 +182,29 @@ void QCode::initWidget()
 
 
 
-    SelfLabel *search = labelList->getLabel(1);
-    search->setToolTip("Search");
-    search->setMinimumWidth(20);
-    search->setMaximumWidth(31);
-    search->setMaximumHeight(200);
-    search->setStyleSheet("color: rgb(204, 204, 204);");
-//    search->setStyleSheet("color: rgb(204, 204, 204);");
-//    taskBarView->set();
-//    taskBarView->addWidget(explorer);
+//    SelfLabel *search = labelList->getLabel(1);
+
+    SearchLabel *w = new SearchLabel();
+
+    SelfLabel *search = w->getLabel();
+//    qDebug() << search->toolTip();
+    search->setMinimumSize(20, 40);
+    search->setMaximumSize(31, 40);
+//    qDebug() << search->toolTip();
+//    search->setToolTip("Search");
+//    search->setMinimumWidth(20);
+//    search->setMaximumWidth(100);
+//    search->setMaximumHeight(100);
+//    search->setStyleSheet("background-color:red");
+
+
+    taskBarView->addWidget(explorer);
     taskBarView->addWidget(search);
 
-//    fileTree->setContentsMargins(0, 0 , 0, 0);
 
 
+
+    taskBarView->addWidget(new QLabel(this));
 
 
     fileTree = new FileTree;
@@ -226,9 +236,11 @@ void QCode::initWidget()
     hLayout->addWidget(tabWidget);
 
 
+    vLayout->addLayout(hLayout);
+
+
 //    hLayout->addStretch();  // 会导致 fileTree 显示错误
 
-    vLayout->addLayout(hLayout);
 
 
 //    hLayout->setSpacing(1);
