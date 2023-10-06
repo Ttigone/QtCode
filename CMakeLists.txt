@@ -28,10 +28,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         codeedit.h codeedit.cpp
         highlighter.h highlighter.cpp
         highlight.qrc
-        filetree.h filetree.cpp
+        filepage.h filepage.cpp
         leftlabel.h leftlabel.cpp
         selflabel.h selflabel.cpp
-        searchlabel.h searchlabel.cpp
+        searchpage.h searchpage.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET QtCode APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

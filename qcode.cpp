@@ -4,10 +4,9 @@
 
 #include "titlebar.h"
 #include "codeedit.h"
-#include "filetree.h"
 #include "leftlabel.h"
-
-#include "searchlabel.h"
+#include "filepage.h"
+#include "searchpage.h"
 
 
 #include <QVBoxLayout>
@@ -15,6 +14,9 @@
 #include <QSizePolicy>
 #include <QSplitter>
 #include <QToolTip>
+#include <QStackedWidget>
+
+
 
 //调用WIN API需要用到的头文件与库 [实现缩放]
 #ifdef Q_OS_WIN
@@ -137,6 +139,10 @@ void QCode::initWidget()
     QIcon windowIcon(":/images/qc.png");
     setWindowIcon(windowIcon);
 
+    recordStackWidgetCount = QSharedPointer<int>(new int);
+
+    setStackWidgetCount() = 0;
+
 
     tabWidget = new QTabWidget(this);
 
@@ -164,39 +170,15 @@ void QCode::initWidget()
 
     LeftLabel *labelList = new LeftLabel();
 
-    //    qDebug() << labelList->getLabel(0);
-
     SelfLabel *explorer = labelList->getLabel(0);
-//    explorer->setToolTip("Explorer");
-    explorer->setMinimumWidth(20);
-    explorer->setMaximumWidth(31);
-    explorer->setMaximumHeight(40);
+    explorer->setMaximumSize(30, 40);
 
+//    explorer->setStyleSheet("QLabel{background-color: rgb(13, 13, 13);}");
 
-    //    qDebug() << explorer;
-    //    qDebug() << explorer->pixmap();
-    //    explorer->setText("1");
-    //    // 最左侧按钮
-    //    QLabel *explorer = new QLabel("Explorer");
-//    explorer->setStyleSheet("color: rgb(204, 204, 204);");
+    SelfLabel *search = labelList->getLabel(1);
+    search->setMaximumSize(30, 40);
 
-
-
-//    SelfLabel *search = labelList->getLabel(1);
-
-    SearchLabel *w = new SearchLabel();
-
-    SelfLabel *search = w->getLabel();
-//    qDebug() << search->toolTip();
-    search->setMinimumSize(20, 40);
-    search->setMaximumSize(31, 40);
-//    qDebug() << search->toolTip();
-//    search->setToolTip("Search");
-//    search->setMinimumWidth(20);
-//    search->setMaximumWidth(100);
-//    search->setMaximumHeight(100);
-//    search->setStyleSheet("background-color:red");
-
+//    search->setStyleSheet("QLabel{background-color:red;}");
 
     taskBarView->addWidget(explorer);
     taskBarView->addWidget(search);
@@ -207,96 +189,138 @@ void QCode::initWidget()
     taskBarView->addWidget(new QLabel(this));
 
 
-    fileTree = new FileTree;
+    filePage = new FilePage;
+
+    searchPage = new SearchPage;
+
+    QStackedWidget *stackWidget= new QStackedWidget(this);
+
+    stackWidget->addWidget(filePage->getStartWidget());
+
+    stackWidget->addWidget(filePage->getView());   // 如果成功打开文件夹，则显示
+
+    stackWidget->addWidget(searchPage);
+
+    connect(filePage, &FilePage::openFolder, this, [=](){
+//        filePage->getStartWidget()->hide();
+
+        stackWidget->setCurrentIndex(1);
+    });   // 检测打开文件夹信号
 
 
-    fileTree->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+
+//    filePage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+//    searchPage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    filePage->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    searchPage->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+
+    stackWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     tabWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
-    fileTree->setMinimumSize(200, 800);
+//    filePage->getView()->setMinimumSize(200, 800);
+
+//    searchPage->setMinimumSize(200, 800);
+
+    stackWidget->setMinimumSize(150, 800);  // 可最小缩放比例
+
+    stackWidget->setMaximumWidth(width() * 0.7);              // 右侧编辑区域的最小可视化区域
 
 
-//    connect(explorer, &SelfLabel::clicked, [=](){
-//        if (fileTree->isHidden()) {
-//            fileTree->show();
+
+    QSplitter *splitter = new QSplitter(Qt::Horizontal);
+
+    splitter->addWidget(stackWidget);           // 只有第一个界面与 tabWidget 的边界生效了样式表
+    splitter->addWidget(tabWidget);
+
+
+    splitter->setStyleSheet("QSplitter::handle {background-color: rgb(13, 13, 13);}");
+    splitter->setHandleWidth(0);  // 设置 0 的话，样式表颜色失效
+    splitter->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+
+    splitter->setSizes(QList<int>() << 200 << width() - 200 - 30);
+
+
+    // 将 leftlabel 中传出一个点击 label 的信号，根据这个信号决定应该显示哪个 stackWidget
+
+//    connect(explorer, &SelfLabel::clicked, this, [=](){
+//        if (filePage->getView()->isHidden()) {
+//            filePage->getView()->show();
+//            if (stackWidget->isHidden()) {
+//                stackWidget->show();
+//            }
+//            stackWidget->setCurrentWidget(filePage->getView());
 //        } else {
-//            fileTree->hide();
+//            filePage->getView()->hide();
+//            if (!stackWidget->isHidden()) {
+//                stackWidget->hide();
+//            }
 //        }
 //    });
+
+    connect(explorer, &SelfLabel::clicked, this, [=](){    // 是否能简化
+        if (filePage->hasFolder()) {
+            if (filePage->getView()->isHidden()) {
+                filePage->getView()->show();
+                if (stackWidget->isHidden()) {
+                    stackWidget->show();
+                }
+                stackWidget->setCurrentWidget(filePage->getView());
+            } else {
+                filePage->getView()->hide();
+                if (!stackWidget->isHidden()) {
+                    stackWidget->hide();
+                }
+            }
+        } else {
+            if (filePage->getStartWidget()->isHidden()) {
+                filePage->getStartWidget()->show();
+                if (stackWidget->isHidden()) {
+                    stackWidget->show();
+                }
+                stackWidget->setCurrentIndex(0);
+            } else {
+                filePage->getStartWidget()->hide();
+                if (!stackWidget->isHidden()) {
+                    stackWidget->hide();
+                }
+            }
+            stackWidget->setCurrentIndex(0);
+        }
+    });
+
+
+    connect(search, &SelfLabel::clicked, this, [=](){
+        if (searchPage->isHidden()) {
+            searchPage->show();
+            if (stackWidget->isHidden()) {
+                stackWidget->show();
+            }
+            stackWidget->setCurrentWidget(searchPage);
+        } else {
+            searchPage->hide();
+            if (!stackWidget->isHidden()) {
+                stackWidget->hide();
+            }
+        }
+    });
+
 
 
 
     hLayout->addLayout(taskBarView);
 
-    hLayout->setSpacing(1);
+//    hLayout->addWidget(stackWidget);
 
-    hLayout->addWidget(fileTree);
+//    hLayout->addWidget(tabWidget);
 
-    hLayout->addWidget(tabWidget);
-
+    hLayout->addWidget(splitter);
 
     vLayout->addLayout(hLayout);
 
-
-//    hLayout->addStretch();  // 会导致 fileTree 显示错误
-
-
-
-//    hLayout->setSpacing(1);
-
-//    hLayout->addWidget(tabWidget);   // 覆盖
-
-//    vLayout->addLayout(hLayout);
-
-//    QTreeWidget *treeWidget = new QTreeWidget(this);      // left widget about dict
-//    QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);   // set Policy  useless
-
-
-//    QSplitter *splitter = new QSplitter(Qt::Horizontal);
-
-
-//    treeWidget->setMinimumWidth(150);
-////    treeWidget->setMaximumWidth(900);
-//    treeWidget->setHeaderHidden(true);
-//    treeWidget->setStyleSheet("QTreeWidget{border: 0px solid gray;}");
-
-//    tabWidget->setParent(splitter);
-//    treeWidget->setParent(splitter);
-
-//    splitter->addWidget(fileTree);
-//    splitter->addWidget(tabWidget);
-
-
-//    splitter->setStyleSheet("QSplitter::handle {background-color: rgb(13, 13, 13);}");
-//    splitter->setHandleWidth(0);  // 设置 0 的话，样式表颜色失效
-//    splitter->setStyleSheet("QSplitter::handle { border: 1px solid grey }");
-
-
-
-
-
-
-//    vLayout->addWidget(splitter);        // add to vLayout
-
-//    treeWidget->setSizePolicy(sizePolicy);
-
-//    QList<int> initSizes;
-//    initSizes << 50 << splitter->width() - 10;
-//    splitter->setSizes(initSizes);
-
-
-//    QTreeWidgetItem *item1 = new QTreeWidgetItem(treeWidget, QStringList(QString("item1")));
-//    QTreeWidgetItem *item2 = new QTreeWidgetItem(treeWidget, QStringList(QString("item2")));
-//    QTreeWidgetItem *item3 = new QTreeWidgetItem(treeWidget, QStringList(QString("item3")));
-//    QTreeWidgetItem *item4 = new QTreeWidgetItem(treeWidget, QStringList(QString("item4")));
-
-//    item1->setIcon(0, QIcon(":/images/qc.png"));
-//    item2->setIcon(0, QIcon(":/images/qc.png"));
-//    item3->setIcon(0, QIcon(":/images/qc.png"));
-//    item4->setIcon(0, QIcon(":/images/qc.png"));
-
-//    treeWidget->expandAll();
 
 
     // 应用界面布局
@@ -441,9 +465,22 @@ int QCode::getCurrentTableCount()
     return tabWidget->count();
 }
 
+int& QCode::setStackWidgetCount()
+{
+    return *(recordStackWidgetCount.data());
+}
+
+int QCode::getStackWidgetCount()
+{
+    return *(recordStackWidgetCount.data());
+}
+
+
 void QCode::newTextFileTriggered()
 {
-    tabWidget->addTab(new CodeEdit(this), "Untitled.txt");
+    QString initText = "Untitled";
+    QString fileTitle = initText + (QChar)(getCurrentTableCount() == 0 ?  ' ' : getCurrentTableCount() + 48) +  ".txt";
+    tabWidget->addTab(new CodeEdit(this), fileTitle);
 }
 
 void QCode::newFileTriggered()

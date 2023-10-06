@@ -280,15 +280,15 @@
 	"HEADERS" : 
 	[
 		[
-			"F:/Qt-project/N-QtCode/QtCode/codeedit.h",
+			"F:/Qt-project/N-QtCode/QtCode/FilePage.h",
 			"MU",
-			"EWIEGA46WW/moc_codeedit.cpp",
+			"EWIEGA46WW/moc_FilePage.cpp",
 			null
 		],
 		[
-			"F:/Qt-project/N-QtCode/QtCode/filetree.h",
+			"F:/Qt-project/N-QtCode/QtCode/codeedit.h",
 			"MU",
-			"EWIEGA46WW/moc_filetree.cpp",
+			"EWIEGA46WW/moc_codeedit.cpp",
 			null
 		],
 		[
@@ -310,9 +310,9 @@
 			null
 		],
 		[
-			"F:/Qt-project/N-QtCode/QtCode/searchlabel.h",
+			"F:/Qt-project/N-QtCode/QtCode/searchpage.h",
 			"MU",
-			"EWIEGA46WW/moc_searchlabel.cpp",
+			"EWIEGA46WW/moc_searchpage.cpp",
 			null
 		],
 		[
@@ -397,13 +397,13 @@
 	"SETTINGS_FILE" : "F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/QtCode_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "F:/Qt-project/N-QtCode/QtCode/FilePage.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/codeedit.cpp", "MU", null ],
-		[ "F:/Qt-project/N-QtCode/QtCode/filetree.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/highlighter.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/leftlabel.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/main.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/qcode.cpp", "MU", null ],
-		[ "F:/Qt-project/N-QtCode/QtCode/searchlabel.cpp", "MU", null ],
+		[ "F:/Qt-project/N-QtCode/QtCode/searchpage.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/selflabel.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/titlebar.cpp", "MU", null ]
 	],

@@ -5,7 +5,8 @@
 #include <qtabwidget.h>
 
 class TitleBar;
-class FileTree;
+class FilePage;
+class SearchPage;
 
 
 QT_BEGIN_NAMESPACE
@@ -20,7 +21,6 @@ class QCode : public QWidget
 public:
     QCode(QWidget *parent = nullptr);
     ~QCode();
-
 
 //    bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result);
 
@@ -47,6 +47,12 @@ public:
 
     // 获取当前打开的文件数
     int getCurrentTableCount();
+
+
+public:
+    int& setStackWidgetCount();
+
+    int getStackWidgetCount();
 
 private slots:
 
@@ -110,13 +116,18 @@ private:
 
     TitleBar *titleBar;      // 标题栏
 
-    FileTree *fileTree;
+    FilePage *filePage;
+
+    SearchPage *searchPage;
 
     QTabWidget *tabWidget;
 
     int borderWidth;
 
     QString file_name;         // 文件名
+
+    QSharedPointer<int> recordStackWidgetCount;
+
 
 };
 #endif // QCODE_H
