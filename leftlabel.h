@@ -15,6 +15,14 @@ public:
     explicit LeftLabel(QWidget *parent = nullptr);
 
 public:
+    void drawExplorerLabel();
+
+    void drawSearchLabel();
+
+    void drawSettingLabel();
+
+
+
     void setLabel(SelfLabel *);
 
     SelfLabel* getLabel(size_t);
@@ -25,8 +33,13 @@ signals:
     void labelChanged(int);
 
 private:
-    QList<SelfLabel *> storeLabel;
+    SelfLabel *explorerLabel;
 
+    SelfLabel *searchLabel;
+
+    SelfLabel *settingLabel;
+
+    QList<SelfLabel *> storeLabel;
 
 
 

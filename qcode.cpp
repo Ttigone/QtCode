@@ -401,7 +401,7 @@ QList<QString> QCode::getHistory()
     return lists;
 }
 
-void QCode::openRecentFile()
+void QCode::openRecentFile()     // 应该是打开最近文件夹
 {
     QAction *action = (QAction *)sender();
     QString fileName = action->text();
@@ -465,6 +465,12 @@ int QCode::getCurrentTableCount()
     return tabWidget->count();
 }
 
+bool QCode::isCurrentOpenFilePage(QString &filePath)
+{
+
+    return false;
+}
+
 int& QCode::setStackWidgetCount()
 {
     return *(recordStackWidgetCount.data());
@@ -496,33 +502,38 @@ void QCode::newWindowTriggered()
 
 void QCode::openFileTriggered()
 {
-    fileName = QFileDialog::getOpenFileName(this, "打开文件");
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(this, "警告", "无法打开此文件: " + file.errorString());
-        return;
+    filePath = QFileDialog::getOpenFileName(this, "打开文件");
+
+    if (storeCurrentOpenFilePath.contains(filePath)) {
+        // 文件已经被打开 应切换到相应界面
+        tabWidget->setCurrentIndex(storeCurrentOpenFilePath[filePath]);
+    } else {
+        QFile file(filePath);
+
+        if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+            QMessageBox::warning(this, "警告", "无法打开此文件: " + file.errorString());
+            return;
+        }
+        QTextStream in(&file);
+        QString contentText = in.readAll();
+
+        CodeEdit *codeEditor = new CodeEdit(this);
+
+        codeEditor->setPlainText(contentText);
+        tabWidget->addTab(codeEditor, filePath);                            // 添加新页面
+        storeCurrentOpenFilePath[filePath] = tabWidget->count() - 1;        // 保存当前页面的新路径
+        tabWidget->setCurrentIndex(tabWidget->count() - 1);                 // 切换到新页面
+
+        file.close();
+        saveHistory(filePath);
+        initRecentMenu();
     }
-    QTextStream in(&file);
-    QString content_text = in.readAll();
 
-
-    CodeEdit *code_editor = new CodeEdit(this);
-
-    code_editor->setPlainText(content_text);
-    tabWidget->addTab(code_editor, fileName);
-
-    tabWidget->setCurrentIndex(tabWidget->count() - 1);
-
-
-    file.close();
-
-    saveHistory(fileName);
-
-    initRecentMenu();
 }
 
 void QCode::openFolderTriggered()  // 不能重复打开其他文件夹
 {
+    // 需要覆盖之前已经打开的文件夹，同时打开的页面也得更换
     if (!filePage->hasFolder()) {
         filePage->sloveOpenFolder();
     }
@@ -675,26 +686,30 @@ void QCode::tabWidgetTabCloseRequested(int index)
 
 void QCode::openProjectFile(const QString& projectFileName)
 {
+    if (storeCurrentOpenFilePath.contains(projectFileName)) {
+        tabWidget->setCurrentIndex(storeCurrentOpenFilePath[projectFileName]);
+    } else {
+        QFile file(projectFileName);
 
-    QFile file(projectFileName);
+        if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+            QMessageBox::warning(this, "警告", "无法打开此文件: " + file.errorString());
+            return;
+        }
 
-    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(this, "警告", "无法打开此文件: " + file.errorString());
-        return;
+        QTextStream in(&file);
+        QString contentText = in.readAll();
+
+        CodeEdit *codeEditor = new CodeEdit(this);
+
+        codeEditor->setPlainText(contentText);
+
+        tabWidget->addTab(codeEditor, projectFileName);
+        tabWidget->setCurrentIndex(tabWidget->count() - 1);
+
+        storeCurrentOpenFilePath[projectFileName] = tabWidget->count() - 1;
+
+        file.close();
     }
-
-    QTextStream in(&file);
-    QString contentText = in.readAll();
-
-    CodeEdit *codeEditor = new CodeEdit(this);
-
-    codeEditor->setPlainText(contentText);
-
-    tabWidget->addTab(codeEditor, projectFileName);
-    tabWidget->setCurrentIndex(tabWidget->count() - 1);
-
-    file.close();
-
 }
 
 

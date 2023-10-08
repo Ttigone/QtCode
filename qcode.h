@@ -48,6 +48,8 @@ public:
     // 获取当前打开的文件数
     int getCurrentTableCount();
 
+    // 当前页面是否打开了相应的文件
+    bool isCurrentOpenFilePage(QString &filePath);
 
 public:
     int& setStackWidgetCount();
@@ -115,19 +117,22 @@ private:
 
     Ui::QCode *ui;
 
-    TitleBar *titleBar;      // 标题栏
+    TitleBar *titleBar;                              // 标题栏
 
-    FilePage *filePage;
+    FilePage *filePage;                              // 文件页面
 
-    SearchPage *searchPage;
+    SearchPage *searchPage;                          // 搜索页面
 
-    QTabWidget *tabWidget;
+    QTabWidget *tabWidget;                           // 容纳编辑页面
 
-    int borderWidth;
+    int borderWidth;                                 // 边框像素
 
-    QString fileName;         // 文件名
+    QString filePath;                                // 文件路径
 
-    QSharedPointer<int> recordStackWidgetCount;
+    QSharedPointer<int> recordStackWidgetCount;      // 记录当前栈窗口储存大小
+
+    QHash<QString, int> storeCurrentOpenFilePath;    // 存储当前页面打开的文件路径
+
 
 
 };

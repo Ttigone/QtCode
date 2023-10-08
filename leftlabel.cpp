@@ -6,9 +6,22 @@
 
 
 LeftLabel::LeftLabel(QWidget *parent)
-    : QWidget{parent}
+    : QWidget{parent},
+    explorerLabel(new SelfLabel(this)),
+    searchLabel(new SelfLabel(this))
 {
+    // 绘制控件
+    // 文件探索
+    drawExplorerLabel();
+    // 搜索
+    drawSearchLabel();
+    // 设置
+    drawSettingLabel();
 
+}
+
+void LeftLabel::drawExplorerLabel()
+{
     QPixmap pix(200, 200);
     pix.fill(Qt::transparent);
 
@@ -19,7 +32,6 @@ LeftLabel::LeftLabel(QWidget *parent)
     QPainter painter(&pix);
     painter.setPen(pen);    // 设置笔颜色
 
-    SelfLabel *explorerLabel = new SelfLabel(this);
 
     painter.setRenderHint(QPainter::Antialiasing);
     painter.scale(0.45, 0.45);
@@ -48,22 +60,20 @@ LeftLabel::LeftLabel(QWidget *parent)
 
 
     setLabel(explorerLabel);
+}
 
-// ###############################################################
+void LeftLabel::drawSearchLabel()
+{
+    QPixmap pix(200, 200);
+    pix.fill(Qt::transparent);
 
-    SelfLabel *searchLabel = new SelfLabel(this);
-
-    QPixmap pix2(200, 200);
-    pix2.fill(Qt::transparent);
-
-    QPen pen2(Qt::gray);
+    QPen pen(Qt::gray);
     pen.setWidthF(4);
     pen.setCapStyle(Qt::RoundCap);  // 转角处 圆滑处理
 
+    QPainter painter(&pix);
 
-    painter.begin(&pix2);
-
-    painter.setPen(pen2);
+    painter.setPen(pen);
 
     painter.translate(QPoint(8, 73));        // 平移坐标系
 
@@ -90,32 +100,15 @@ LeftLabel::LeftLabel(QWidget *parent)
 
     painter.end();
 
-    searchLabel->setPixmap(pix2);
+    searchLabel->setPixmap(pix);
     searchLabel->setToolTip("Search");
 
 
-
     setLabel(searchLabel);
+}
 
-
-
-
-//    connect(explorerLabel, &SelfLabel::clicked, this, [&](){
-//        *r = 0;
-//        emit labelChanged(*r);
-//        qDebug() << "ex";
-//    });
-
-//    connect(searchLabel, &SelfLabel::clicked, this, [&](){
-//        *r = 1;
-//        emit labelChanged(*r);
-//        qDebug() << "se";
-//    });
-
-
-
-
-
+void LeftLabel::drawSettingLabel()
+{
 
 }
 

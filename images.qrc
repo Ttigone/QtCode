@@ -8,6 +8,7 @@
         <file>images/opened_folder.png</file>
         <file>images/qc.png</file>
         <file>images/qcexe.ico</file>
-        <file>images/C++.ico</file>
+        <file>images/IconOf-C++.ico</file>
+        <file>images/IconOf-H.ico</file>
     </qresource>
 </RCC>

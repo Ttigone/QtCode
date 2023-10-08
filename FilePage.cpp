@@ -7,6 +7,10 @@
 myFileSystemModel::myFileSystemModel(QObject *parent)
     : QFileSystemModel(parent)
 {
+    fileSuffixMap["cpp"] = FileSuffix::Cpp;
+    fileSuffixMap["cc"] = FileSuffix::Cpp;
+    fileSuffixMap["h"] = FileSuffix::h;
+    fileSuffixMap["hpp"] = FileSuffix::hpp;
 
 }
 

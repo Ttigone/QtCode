@@ -15,6 +15,13 @@ public:
 
     explicit myFileSystemModel(QObject *parent);
 
+    enum FileSuffix {
+        Cpp,
+        h,
+        hpp,
+    };
+
+
 protected:
 
     // 自定义首行信息
@@ -40,20 +47,31 @@ protected:
 
     // 在视图显示中去除系统自带图标
 
+    // 这些重载函数与构造函数的执行顺序是怎样的？ 跟程序执行代码有关？
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override {
         QString filePath = this->filePath(index);
         QFileInfo fileInfo(filePath);
         QString fileSuffix = fileInfo.suffix();
         if (role == Qt::DecorationRole) {
 //            return QVariant();  // 返回一个无效的QVariant来隐藏图标
-            if (fileInfo.isFile() && (fileSuffix == "cpp" || fileSuffix == "cc")) {
-                return QIcon(":/images/C++.ico");
-            } else {
-                return QVariant();
+            if (fileInfo.isFile()) {
+                switch (fileSuffixMap[fileSuffix]) {
+                case FileSuffix::Cpp:
+                    return QIcon(":/images/IconOf-C++.ico");
+                    break;
+                case FileSuffix::h:
+                    return QIcon(":/images/IconOf-H.ico");
+                default:
+                    return QVariant();
+                    break;
+                }
             }
         }
         return QFileSystemModel::data(index, role);
     }
+
+private:
+    QHash<QString, FileSuffix> fileSuffixMap;       // 字符串 和 相应枚举值的对应
 };
 
 

@@ -255,7 +255,7 @@ build QtCode_autogen/timestamp QtCode_autogen/mocs_compilation.cpp | ${cmake_nin
 #############################################
 # Custom command for QtCode_autogen\EWIEGA46WW\qrc_images.cpp
 
-build QtCode_autogen/EWIEGA46WW/qrc_images.cpp | ${cmake_ninja_workdir}QtCode_autogen/EWIEGA46WW/qrc_images.cpp: CUSTOM_COMMAND F$:/Qt-project/N-QtCode/QtCode/images.qrc CMakeFiles/QtCode_autogen.dir/AutoRcc_images_EWIEGA46WW_Info.json F$:/Qt-project/N-QtCode/QtCode/images/qcexe.ico F$:/Qt-project/N-QtCode/QtCode/images/folder.png F$:/Qt-project/N-QtCode/QtCode/images/maximize.png F$:/Qt-project/N-QtCode/QtCode/images/new_file.png F$:/Qt-project/N-QtCode/QtCode/images/minimize.png F$:/Qt-project/N-QtCode/QtCode/images/opened_folder.png F$:/Qt-project/N-QtCode/QtCode/images/C++.ico F$:/Qt-project/N-QtCode/QtCode/images/close.png F$:/Qt-project/N-QtCode/QtCode/images/qc.png D$:/qt/qt6/6.4.3/mingw_64/./bin/rcc.exe || QtCode_autogen QtCode_autogen_timestamp_deps
+build QtCode_autogen/EWIEGA46WW/qrc_images.cpp | ${cmake_ninja_workdir}QtCode_autogen/EWIEGA46WW/qrc_images.cpp: CUSTOM_COMMAND F$:/Qt-project/N-QtCode/QtCode/images.qrc CMakeFiles/QtCode_autogen.dir/AutoRcc_images_EWIEGA46WW_Info.json F$:/Qt-project/N-QtCode/QtCode/images/qcexe.ico F$:/Qt-project/N-QtCode/QtCode/images/folder.png F$:/Qt-project/N-QtCode/QtCode/images/IconOf-H.ico F$:/Qt-project/N-QtCode/QtCode/images/maximize.png F$:/Qt-project/N-QtCode/QtCode/images/IconOf-C++.ico F$:/Qt-project/N-QtCode/QtCode/images/new_file.png F$:/Qt-project/N-QtCode/QtCode/images/minimize.png F$:/Qt-project/N-QtCode/QtCode/images/opened_folder.png F$:/Qt-project/N-QtCode/QtCode/images/close.png F$:/Qt-project/N-QtCode/QtCode/images/qc.png D$:/qt/qt6/6.4.3/mingw_64/./bin/rcc.exe || QtCode_autogen QtCode_autogen_timestamp_deps
   COMMAND = cmd.exe /C "cd /D F:\Qt-project\N-QtCode\QtCode\cmake-build-qtcode && "G:\JetBrains\CLion 2023.2\bin\cmake\win\x64\bin\cmake.exe" -E cmake_autorcc F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/CMakeFiles/QtCode_autogen.dir/AutoRcc_images_EWIEGA46WW_Info.json Debug"
   DESC = Automatic RCC for images.qrc
   restat = 1
@@ -273,7 +273,7 @@ build QtCode_autogen/EWIEGA46WW/qrc_highlight.cpp | ${cmake_ninja_workdir}QtCode
 #############################################
 # Phony custom command for CMakeFiles\QtCode_autogen_timestamp_deps
 
-build CMakeFiles/QtCode_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/QtCode_autogen_timestamp_deps: phony D$:/qt/qt6/6.4.3/mingw_64/lib/libQt6Core.a D$:/qt/qt6/6.4.3/mingw_64/./bin/moc.exe D$:/qt/qt6/6.4.3/mingw_64/./bin/uic.exe D$:/qt/qt6/6.4.3/mingw_64/lib/libQt6Widgets.a
+build CMakeFiles/QtCode_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/QtCode_autogen_timestamp_deps: phony D$:/qt/qt6/6.4.3/mingw_64/lib/libQt6Core.a D$:/qt/qt6/6.4.3/mingw_64/./bin/uic.exe D$:/qt/qt6/6.4.3/mingw_64/./bin/moc.exe D$:/qt/qt6/6.4.3/mingw_64/lib/libQt6Widgets.a
 
 
 #############################################
