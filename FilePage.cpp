@@ -33,38 +33,26 @@ FilePage::FilePage(QWidget *parent)
 
     connect(openFolderBtn, &QPushButton::clicked, this, &FilePage::sloveOpenFolder);
 
+//    folderTreeView->setModel(nullptr);
+
+    // 由于是在打开文件夹之后才为 folderTreeView 设置相应的 Model 故此处信号槽连接时，没有相应的 信号发出者
+//    QObject::connect(folderTreeView->selectionModel(), &QItemSelectionModel::selectionChanged, [=](const QItemSelection &selected, const QItemSelection &deselected) {
+
+//        Q_UNUSED(deselected);
+
+//        if (selected.indexes().count() > 0) {
+//            QModelIndex selectedIndex = selected.indexes().first();
+//            auto info = fileModel->fileInfo(selectedIndex);
+//            if (info.isFile()) {
+//                QString path = fileModel->filePath(selectedIndex);
+//                qDebug() << "Selected path:" << path;
+//            }
+//        }
+//    });
 
 
-//    QString lp = QDir::currentPath();
-//    QString s = QFileDialog::getExistingDirectory(this, "open folder", lp);
-//    lp = s;
-//    fileModel->setRootPath(s);
-
-
-
-//    QStandardItemModel *treeModel = new QStandardItemModel;
-//    treeModel->setHorizontalHeaderLabels(QStringList(QStringLiteral("projectname")));
-
-//    QStandardItem* itemRoot = treeModel->invisibleRootItem();
-//    // 创建并添加Item的第一个子节点
-//    QStandardItem* itemCam = new QStandardItem(QStringLiteral("string1"));
-//    itemRoot->appendRow(itemCam);
-
-//    // 向第一个子节点itemCam添加子节点数据
-//    QList<QStandardItem*> camList;
-//    camList.append(new QStandardItem("file1"));
-//    camList.append(new QStandardItem("file2"));
-//    camList.append(new QStandardItem("file3"));
-//    itemCam->appendRows(camList);
-
-//    // 创建并添加Item的第二个子节点
-//    QStandardItem* itemImg = new QStandardItem(QStringLiteral("string2"));
-//    itemRoot->appendRow(itemImg);
-
-//    treeView->setModel(fileModel);
-//    treeView->setRootIndex(fileModel->index(lp));
-//    treeView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);   // 水平 ，垂直
 }
+
 
 QTreeView *FilePage::getView()
 {
@@ -78,15 +66,23 @@ QWidget *FilePage::getStartWidget()
 
 bool FilePage::hasFolder()
 {
-    return !currentRootPath.isEmpty();
+    return !currentPath.isEmpty();
+}
+
+QString& FilePage::getCurrentSelectFilePath()
+{
+    return currentSelectFilePath;
 }
 
 void FilePage::sloveOpenFolder()
 {
     currentRootPath = QDir::rootPath();
 
-    QString currentPath = QFileDialog::getExistingDirectory(this, "Open Folder", currentRootPath);
+    currentPath = QFileDialog::getExistingDirectory(this, "Open Folder", currentRootPath);
 
+    if (currentPath.isEmpty()) {    // 未能够正确打开文件夹
+        return;
+    }
 
     fileModel->setRootPath(currentPath);
 
@@ -100,8 +96,24 @@ void FilePage::sloveOpenFolder()
 
     folderTreeView->hideColumn(1);
     folderTreeView->hideColumn(2);
-    folderTreeView->hideColumn(3);  // 卡顿
+    folderTreeView->hideColumn(3);
 
+    // 由于是在打开文件夹之后才为 folderTreeView 设置相应的 Model 故此处信号槽连接时，没有相应的 信号发出者
+    QObject::connect(folderTreeView->selectionModel(), &QItemSelectionModel::selectionChanged, [=](const QItemSelection &selected, const QItemSelection &deselected) {
+
+        Q_UNUSED(deselected);
+
+        if (selected.indexes().count() > 0) {
+            QModelIndex selectedIndex = selected.indexes().first();
+            auto info = fileModel->fileInfo(selectedIndex);
+            if (info.isFile()) {
+//                QString path = fileModel->filePath(selectedIndex);
+//                qDebug() << "Selected path:" << path;
+                currentSelectFilePath = fileModel->filePath(selectedIndex);
+                emit selectFileIndexChanged(currentSelectFilePath);
+            }
+        }
+    });
 
     emit openFolder();
 }

@@ -64,7 +64,6 @@ private slots:
 
     void openFileTriggered();       // 处理 打开文件
 
-
     void openFolderTriggered();     // 处理 打开文件夹
 
     void saveTriggered();            // 处理 保存文件
@@ -106,6 +105,8 @@ private slots:
 
     void tabWidgetTabCloseRequested(int index);  // 处理 关闭标签页
 
+    void openProjectFile(const QString& projectFileName);          // 处理 打开项目文件
+
 signals:
 
 
@@ -124,7 +125,7 @@ private:
 
     int borderWidth;
 
-    QString file_name;         // 文件名
+    QString fileName;         // 文件名
 
     QSharedPointer<int> recordStackWidgetCount;
 

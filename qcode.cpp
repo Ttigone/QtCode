@@ -203,7 +203,6 @@ void QCode::initWidget()
 
     connect(filePage, &FilePage::openFolder, this, [=](){
 //        filePage->getStartWidget()->hide();
-
         stackWidget->setCurrentIndex(1);
     });   // 检测打开文件夹信号
 
@@ -337,6 +336,7 @@ void QCode::initConnection()
     connect(titleBar, &TitleBar::newWindowTriggered, this, &QCode::newWindowTriggered);
 
     connect(titleBar, &TitleBar::openFileTriggered, this, &QCode::openFileTriggered);
+    connect(titleBar, &TitleBar::openFolderTriggered, this, &QCode::openFolderTriggered);
 
     connect(titleBar, &TitleBar::saveTriggered, this, &QCode::saveTriggered);
     connect(titleBar, &TitleBar::saveAsTriggered, this, &QCode::saveAsTriggered);
@@ -350,6 +350,8 @@ void QCode::initConnection()
     connect(titleBar, &TitleBar::aboutTriggered, this, &QCode::aboutTriggered);
 
     connect(tabWidget, &QTabWidget::tabCloseRequested, this, &QCode::tabWidgetTabCloseRequested);
+
+    connect(filePage, &FilePage::selectFileIndexChanged, this, &QCode::openProjectFile);
 
 
 
@@ -419,7 +421,7 @@ void QCode::openRecentFile()
 
     file.close();
 
-    saveHistory(file_name);
+    saveHistory(fileName);
 
     initRecentMenu();
 }
@@ -433,8 +435,6 @@ void QCode::clearHistoryRecord()
 void QCode::initRecentMenu()
 {
     QMenu *recent = this->findChild<QMenu *>("recent");
-
-    qDebug() << recent;  // 能找到
 
     // 去重
     QList<QObject *> chlists = recent->children().toList();
@@ -496,8 +496,8 @@ void QCode::newWindowTriggered()
 
 void QCode::openFileTriggered()
 {
-    file_name = QFileDialog::getOpenFileName(this, "打开文件");
-    QFile file(file_name);
+    fileName = QFileDialog::getOpenFileName(this, "打开文件");
+    QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
         QMessageBox::warning(this, "警告", "无法打开此文件: " + file.errorString());
         return;
@@ -509,20 +509,23 @@ void QCode::openFileTriggered()
     CodeEdit *code_editor = new CodeEdit(this);
 
     code_editor->setPlainText(content_text);
-    tabWidget->addTab(code_editor, file_name);
+    tabWidget->addTab(code_editor, fileName);
 
     tabWidget->setCurrentIndex(tabWidget->count() - 1);
 
 
     file.close();
 
-    saveHistory(file_name);
+    saveHistory(fileName);
 
     initRecentMenu();
 }
 
-void QCode::openFolderTriggered()
+void QCode::openFolderTriggered()  // 不能重复打开其他文件夹
 {
+    if (!filePage->hasFolder()) {
+        filePage->sloveOpenFolder();
+    }
 
 }
 
@@ -668,6 +671,30 @@ void QCode::tabWidgetTabCloseRequested(int index)
 //    delete tabWidget->currentWidget();
     tabWidget->removeTab(index);
     delete codeEditor;
+}
+
+void QCode::openProjectFile(const QString& projectFileName)
+{
+
+    QFile file(projectFileName);
+
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "警告", "无法打开此文件: " + file.errorString());
+        return;
+    }
+
+    QTextStream in(&file);
+    QString contentText = in.readAll();
+
+    CodeEdit *codeEditor = new CodeEdit(this);
+
+    codeEditor->setPlainText(contentText);
+
+    tabWidget->addTab(codeEditor, projectFileName);
+    tabWidget->setCurrentIndex(tabWidget->count() - 1);
+
+    file.close();
+
 }
 
 
