@@ -170,19 +170,27 @@ void QCode::initWidget()
 
     LeftLabel *labelList = new LeftLabel();
 
-    SelfLabel *explorer = labelList->getLabel(0);
-    explorer->setMaximumSize(30, 40);
+    SelfLabel *explorerLabel = labelList->getLabel(0);
+    explorerLabel->setMaximumSize(30, 40);
 
 //    explorer->setStyleSheet("QLabel{background-color: rgb(13, 13, 13);}");
 
-    SelfLabel *search = labelList->getLabel(1);
-    search->setMaximumSize(30, 40);
+    SelfLabel *searchLabel = labelList->getLabel(1);
+    searchLabel->setMaximumSize(30, 40);
 
 //    search->setStyleSheet("QLabel{background-color:red;}");
 
-    taskBarView->addWidget(explorer);
-    taskBarView->addWidget(search);
+    SelfLabel *settingLabel = labelList->getLabel(2);
+    settingLabel->setMaximumSize(30, 40);
+//    settingLabel->setStyleSheet("QLabel{background-color:red;}");
 
+
+    taskBarView->addWidget(explorerLabel);
+    taskBarView->addWidget(searchLabel);
+
+    taskBarView->addStretch();
+
+    taskBarView->addWidget(settingLabel);
 
 
 
@@ -208,7 +216,6 @@ void QCode::initWidget()
 
 
 
-
 //    filePage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
 //    searchPage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
@@ -224,9 +231,9 @@ void QCode::initWidget()
 
 //    searchPage->setMinimumSize(200, 800);
 
-    stackWidget->setMinimumSize(150, 800);  // 可最小缩放比例
+    stackWidget->setMinimumWidth(150);  // 可最小缩放比例
 
-    stackWidget->setMaximumWidth(width() * 0.7);              // 右侧编辑区域的最小可视化区域
+    stackWidget->setMaximumWidth(this->width() * 0.8);              // 右侧编辑区域的最小可视化区域
 
 
 
@@ -260,7 +267,7 @@ void QCode::initWidget()
 //        }
 //    });
 
-    connect(explorer, &SelfLabel::clicked, this, [=](){    // 是否能简化
+    connect(explorerLabel, &SelfLabel::clicked, this, [=](){    // 是否能简化
         if (filePage->hasFolder()) {
             if (filePage->getView()->isHidden()) {
                 filePage->getView()->show();
@@ -292,7 +299,7 @@ void QCode::initWidget()
     });
 
 
-    connect(search, &SelfLabel::clicked, this, [=](){
+    connect(searchLabel, &SelfLabel::clicked, this, [=](){
         if (searchPage->isHidden()) {
             searchPage->show();
             if (stackWidget->isHidden()) {
@@ -465,12 +472,6 @@ int QCode::getCurrentTableCount()
     return tabWidget->count();
 }
 
-bool QCode::isCurrentOpenFilePage(QString &filePath)
-{
-
-    return false;
-}
-
 int& QCode::setStackWidgetCount()
 {
     return *(recordStackWidgetCount.data());
@@ -534,9 +535,10 @@ void QCode::openFileTriggered()
 void QCode::openFolderTriggered()  // 不能重复打开其他文件夹
 {
     // 需要覆盖之前已经打开的文件夹，同时打开的页面也得更换
-    if (!filePage->hasFolder()) {
-        filePage->sloveOpenFolder();
-    }
+//    if (!filePage->hasFolder()) {
+//        filePage->sloveOpenFolder();
+//    }
+    filePage->sloveOpenFolder();
 
 }
 

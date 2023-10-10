@@ -48,9 +48,6 @@ public:
     // 获取当前打开的文件数
     int getCurrentTableCount();
 
-    // 当前页面是否打开了相应的文件
-    bool isCurrentOpenFilePage(QString &filePath);
-
 public:
     int& setStackWidgetCount();
 

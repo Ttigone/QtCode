@@ -7,7 +7,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-
+// 不支持 png 类型文件
 
 class myFileSystemModel : public QFileSystemModel
 {
@@ -15,10 +15,15 @@ public:
 
     explicit myFileSystemModel(QObject *parent);
 
+
+    // 无后缀 是 none
+    // 其他后缀 是 other
     enum FileSuffix {
-        Cpp,
-        h,
-        hpp,
+        other = 0,
+        Cpp = 1,
+        h = 2,
+        hpp = 3,
+        none = 4
     };
 
 
@@ -58,12 +63,13 @@ protected:
                 switch (fileSuffixMap[fileSuffix]) {
                 case FileSuffix::Cpp:
                     return QIcon(":/images/IconOf-C++.ico");
-                    break;
+                        break;
                 case FileSuffix::h:
                     return QIcon(":/images/IconOf-H.ico");
+                        break;
                 default:
                     return QVariant();
-                    break;
+                        break;
                 }
             }
         }

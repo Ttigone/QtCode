@@ -8,7 +8,8 @@
 LeftLabel::LeftLabel(QWidget *parent)
     : QWidget{parent},
     explorerLabel(new SelfLabel(this)),
-    searchLabel(new SelfLabel(this))
+    searchLabel(new SelfLabel(this)),
+    settingLabel(new SelfLabel(this))
 {
     // 绘制控件
     // 文件探索
@@ -109,7 +110,41 @@ void LeftLabel::drawSearchLabel()
 
 void LeftLabel::drawSettingLabel()
 {
+    QPixmap pix(200, 200);
+    pix.fill(Qt::transparent);
 
+    QPen pen(Qt::black);
+    pen.setWidthF(4);
+    pen.setCapStyle(Qt::RoundCap);  // 转角处 圆滑处理
+
+    QPainter painter(&pix);
+
+    painter.setPen(pen);
+
+    painter.translate(QPoint(8, 73));        // 平移坐标系
+//
+    painter.setRenderHint(QPainter::Antialiasing);
+//
+    painter.scale(0.5, 0.5);
+//
+    int centerX = 10;
+    int centerY = 30;
+
+    int radius = qMin(centerX, centerY) ;// 10px 作为边距
+
+    painter.drawEllipse(QPoint(centerX, centerY), 8, 8);
+
+    painter.drawLine(QPoint(5, 0), QPoint(4, 10));
+    painter.drawLine(QPoint(5, 0), QPoint(13, 0));
+    painter.drawLine(QPoint(13, 0), QPoint(14, 10));
+    // 将绘制的曲线旋转 360 度
+
+
+
+    settingLabel->setPixmap(pix);
+    settingLabel->setToolTip("Setting");
+//
+    setLabel(settingLabel);
 }
 
 void LeftLabel::setLabel(SelfLabel* rl)

@@ -7,10 +7,12 @@
 myFileSystemModel::myFileSystemModel(QObject *parent)
     : QFileSystemModel(parent)
 {
+    // 不在里面的为 other
     fileSuffixMap["cpp"] = FileSuffix::Cpp;
     fileSuffixMap["cc"] = FileSuffix::Cpp;
     fileSuffixMap["h"] = FileSuffix::h;
     fileSuffixMap["hpp"] = FileSuffix::hpp;
+    fileSuffixMap[""] = FileSuffix::other;
 
 }
 
@@ -89,6 +91,7 @@ void FilePage::sloveOpenFolder()
     }
 
     fileModel->setRootPath(currentPath);
+
 
     folderTreeView->setModel(fileModel);
 
