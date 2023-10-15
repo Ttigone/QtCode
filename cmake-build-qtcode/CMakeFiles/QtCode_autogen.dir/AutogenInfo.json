@@ -322,6 +322,12 @@
 			null
 		],
 		[
+			"F:/Qt-project/N-QtCode/QtCode/settingspage.h",
+			"MU",
+			"EWIEGA46WW/moc_settingspage.cpp",
+			null
+		],
+		[
 			"F:/Qt-project/N-QtCode/QtCode/titlebar.h",
 			"MU",
 			"EWIEGA46WW/moc_titlebar.cpp",
@@ -405,6 +411,7 @@
 		[ "F:/Qt-project/N-QtCode/QtCode/qcode.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/searchpage.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/selflabel.cpp", "MU", null ],
+		[ "F:/Qt-project/N-QtCode/QtCode/settingspage.cpp", "MU", null ],
 		[ "F:/Qt-project/N-QtCode/QtCode/titlebar.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],

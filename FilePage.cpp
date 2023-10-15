@@ -14,6 +14,26 @@ myFileSystemModel::myFileSystemModel(QObject *parent)
     fileSuffixMap["hpp"] = FileSuffix::hpp;
     fileSuffixMap[""] = FileSuffix::other;
 
+    // 不能打开的文件
+    fileSuffixMap["exe"] = FileSuffix::unused;
+    fileSuffixMap["png"] = FileSuffix::unused;
+    fileSuffixMap["jpg"] = FileSuffix::unused;
+    fileSuffixMap["jpeg"] = FileSuffix::unused;
+    fileSuffixMap["gif"] = FileSuffix::unused;
+    fileSuffixMap["bmp"] = FileSuffix::unused;
+    fileSuffixMap["ico"] = FileSuffix::unused;
+    fileSuffixMap["tiff"] = FileSuffix::unused;
+    fileSuffixMap["tif"] = FileSuffix::unused;
+    fileSuffixMap["svg"] = FileSuffix::unused;
+    fileSuffixMap["svgz"] = FileSuffix::unused;
+    fileSuffixMap["psd"] = FileSuffix::unused;
+    fileSuffixMap["raw"] = FileSuffix::unused;
+    fileSuffixMap["webp"] = FileSuffix::unused;
+    fileSuffixMap["mp3"] = FileSuffix::unused;
+    fileSuffixMap["wav"] = FileSuffix::unused;
+    fileSuffixMap["wma"] = FileSuffix::unused;
+
+
 }
 
 FilePage::FilePage(QWidget *parent)
@@ -110,14 +130,21 @@ void FilePage::sloveOpenFolder()
 
         Q_UNUSED(deselected);
 
-        if (selected.indexes().count() > 0) {
+        if (selected.indexes().count() > 0) {   // 处理不能打开的文件
             QModelIndex selectedIndex = selected.indexes().first();
             auto info = fileModel->fileInfo(selectedIndex);
-            if (info.isFile()) {
-//                QString path = fileModel->filePath(selectedIndex);
-//                qDebug() << "Selected path:" << path;
-                currentSelectFilePath = fileModel->filePath(selectedIndex);
-                emit selectFileIndexChanged(currentSelectFilePath);
+            if (info.isFile()) {     // 是一个文件
+                switch (fileModel->getFileSuffixMap()[info.suffix()]) {
+                    case myFileSystemModel::FileSuffix::unused:
+                        currentSelectFilePath = "";
+                        emit selectFileIndexChanged(currentSelectFilePath);
+                        break;
+
+                    default:
+                        currentSelectFilePath = fileModel->filePath(selectedIndex);
+                        emit selectFileIndexChanged(currentSelectFilePath);
+                        break;
+                }
             }
         }
     });

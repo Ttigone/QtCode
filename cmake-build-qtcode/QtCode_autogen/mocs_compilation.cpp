@@ -5,4 +5,5 @@
 #include "EWIEGA46WW/moc_qcode.cpp"
 #include "EWIEGA46WW/moc_searchpage.cpp"
 #include "EWIEGA46WW/moc_selflabel.cpp"
+#include "EWIEGA46WW/moc_settingspage.cpp"
 #include "EWIEGA46WW/moc_titlebar.cpp"

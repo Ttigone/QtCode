@@ -113,7 +113,7 @@ void LeftLabel::drawSettingLabel()
     QPixmap pix(200, 200);
     pix.fill(Qt::transparent);
 
-    QPen pen(Qt::black);
+    QPen pen(Qt::gray);
     pen.setWidthF(4);
     pen.setCapStyle(Qt::RoundCap);  // 转角处 圆滑处理
 
@@ -121,28 +121,55 @@ void LeftLabel::drawSettingLabel()
 
     painter.setPen(pen);
 
-    painter.translate(QPoint(8, 73));        // 平移坐标系
+    QPoint BEGIN_P(10, 71);
+    painter.translate(BEGIN_P);        // 平移坐标系
 //
     painter.setRenderHint(QPainter::Antialiasing);
 //
-    painter.scale(0.5, 0.5);
+    painter.scale(0.45, 0.45);
 //
-    int centerX = 10;
-    int centerY = 30;
 
-    int radius = qMin(centerX, centerY) ;// 10px 作为边距
+    QPoint CIRCLE_P(12, 28);
+//
+//    int radius = qMin(centerX, centerY) ;// 10px 作为边距
 
-    painter.drawEllipse(QPoint(centerX, centerY), 8, 8);
+    painter.drawEllipse(CIRCLE_P, 8, 8);
 
-    painter.drawLine(QPoint(5, 0), QPoint(4, 10));
-    painter.drawLine(QPoint(5, 0), QPoint(13, 0));
-    painter.drawLine(QPoint(13, 0), QPoint(14, 10));
+
+    painter.translate(CIRCLE_P);  // 平移坐标系到圆中
+
+//    painter.drawLine(QPoint(5, 0), QPoint(4, 10));
+//    painter.drawLine(QPoint(5 + CIRCLE_P.x() - BEGIN_P.x(), 0 + CIRCLE_P.y() - BEGIN_P.y()), QPoint(4 + CIRCLE_P.x() - BEGIN_P.x() , 10 + CIRCLE_P.y() - BEGIN_P.y()));
+//    painter.drawLine(QPoint(5 + CIRCLE_P.x() - BEGIN_P.x(), 0 + CIRCLE_P.y() - BEGIN_P.y()), QPoint(13 + CIRCLE_P.x() - BEGIN_P.x(), 0 + CIRCLE_P.y() - BEGIN_P.y()));
+//    painter.drawLine(QPoint(13 + CIRCLE_P.x() - BEGIN_P.x(), 0 + CIRCLE_P.y() - BEGIN_P.y()), QPoint(14 + CIRCLE_P.x() - BEGIN_P.x(), 10 + CIRCLE_P.y() - BEGIN_P.y()));
     // 将绘制的曲线旋转 360 度
 
+    painter.drawLine(QPoint(-5, -30), QPoint(-6, -17));
+    painter.drawLine(QPoint(-5, -30), QPoint(5, -30));
+    painter.drawLine(QPoint(5, -30), QPoint(6, -17));
 
+    for (int i = 0; i < 7; ++i) {
+        painter.rotate(360 / 8);
+        painter.drawLine(QPoint(-5, -30), QPoint(-6, -17));
+        painter.drawLine(QPoint(-5, -30), QPoint(5, -30));
+        painter.drawLine(QPoint(5, -30), QPoint(6, -17));
+
+    }
+
+
+
+
+//    painter.drawLine(QPoint(5 + CIRCLE_P.x() - BEGIN_P.x(), 0 + CIRCLE_P.y() - BEGIN_P.y()), QPoint(4 + CIRCLE_P.x() - BEGIN_P.x() , 10 + CIRCLE_P.y() - BEGIN_P.y()));
+//    painter.drawLine(QPoint(5 + CIRCLE_P.x() - BEGIN_P.x(), 0 + CIRCLE_P.y() - BEGIN_P.y()), QPoint(13 + CIRCLE_P.x() - BEGIN_P.x(), 0 + CIRCLE_P.y() - BEGIN_P.y()));
+//    painter.drawLine(QPoint(13 + CIRCLE_P.x() - BEGIN_P.x(), 0 + CIRCLE_P.y() - BEGIN_P.y()), QPoint(14 + CIRCLE_P.x() - BEGIN_P.x(), 10 + CIRCLE_P.y() - BEGIN_P.y()));
+
+//    painter.rotate(360 / 8);
+//    painter.drawLine(QPoint(5, 0), QPoint(4, 10));
+//    painter.drawLine(QPoint(5, 0), QPoint(13, 0));
+//    painter.drawLine(QPoint(13, 0), QPoint(14, 10));
 
     settingLabel->setPixmap(pix);
-    settingLabel->setToolTip("Setting");
+    settingLabel->setToolTip("Manage");
 //
     setLabel(settingLabel);
 }

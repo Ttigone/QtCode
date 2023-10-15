@@ -5,6 +5,7 @@ F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_c
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/QRect \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/QSize \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/QSizeF \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtCore/QTimer \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qalgorithms.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qanystringview.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qarraydata.h \
@@ -13,6 +14,7 @@ F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_c
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qatomic.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qatomic_cxx11.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qbasicatomic.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qbasictimer.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qbindingstorage.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qbytearray.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qbytearrayalgorithms.h \
@@ -86,6 +88,7 @@ F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_c
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qtcore-config.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qtcoreexports.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qtextstream.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qtimer.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qtmetamacros.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qtypeinfo.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qurl.h \
@@ -139,10 +142,13 @@ F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_c
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qwindowdefs.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qwindowdefs_win.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QPlainTextEdit \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QScrollBar \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QWidget \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qabstractslider.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qframe.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qplaintextedit.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qscrollbar.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qsizepolicy.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtextedit.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qtwidgets-config.h \

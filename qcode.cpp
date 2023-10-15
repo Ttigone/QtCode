@@ -7,7 +7,7 @@
 #include "leftlabel.h"
 #include "filepage.h"
 #include "searchpage.h"
-
+#include "settingspage.h"
 
 #include <QVBoxLayout>
 #include <QTreeWidget>
@@ -122,6 +122,8 @@ QCode::~QCode()
 
 void QCode::initWidget()
 {
+
+
     // 设置无标题框
 //    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
@@ -188,13 +190,11 @@ void QCode::initWidget()
     taskBarView->addWidget(explorerLabel);
     taskBarView->addWidget(searchLabel);
 
-    taskBarView->addStretch();
+    taskBarView->addStretch(2);
 
     taskBarView->addWidget(settingLabel);
 
 
-
-    taskBarView->addWidget(new QLabel(this));
 
 
     filePage = new FilePage;
@@ -316,6 +316,43 @@ void QCode::initWidget()
 
 
 
+    settingsMenu = new QMenu(this);
+
+    QAction *commandPalette = new QAction("Command Palette", this);
+
+    QAction *profiles = new QAction("Profiles", this);
+    QAction *settings = new QAction("Settings", this);
+    QAction *keyboardShortcuts = new QAction("Keyboard Shortcuts", this);
+    QAction *themes = new QAction("Themes", this);
+
+    QAction *checkForUpdates = new QAction("Check for Updates", this);
+
+    settingsMenu->addAction(commandPalette);
+
+    settingsMenu->addSeparator();
+
+    settingsMenu->addAction(profiles);
+    settingsMenu->addAction(settings);
+    settingsMenu->addAction(keyboardShortcuts);
+    settingsMenu->addAction(themes);
+
+    settingsMenu->addSeparator();
+
+    settingsMenu->addAction(checkForUpdates);
+
+
+    connect(settingLabel, &SelfLabel::clicked, this, [=]() {
+        settingsMenu->exec(QCursor::pos());
+    });
+
+
+    settingsPage = new SettingsPage(this);
+
+    connect(settings, &QAction::triggered, tabWidget, [=]() {
+        tabWidget->addTab(settingsPage, "Settings");
+    });
+
+
 
     hLayout->addLayout(taskBarView);
 
@@ -334,6 +371,9 @@ void QCode::initWidget()
 
     // 可拖拽的边距
     borderWidth = 5;
+
+
+
 }
 
 void QCode::initConnection()
@@ -686,6 +726,7 @@ void QCode::tabWidgetTabCloseRequested(int index)
     delete codeEditor;
 }
 
+// 打开项目树的文件
 void QCode::openProjectFile(const QString& projectFileName)
 {
     if (storeCurrentOpenFilePath.contains(projectFileName)) {

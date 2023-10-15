@@ -5,19 +5,35 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextBlock>
+#include <QPropertyAnimation>
 
 CodeEdit::CodeEdit(QWidget *parent)
-    : QPlainTextEdit{parent}
+    : QPlainTextEdit{parent}, lineNumberWidget(new LineNumber(this)), timer(new QTimer(this)), scrollStep(0)
 {
 
-    lineNumberWidget = new LineNumber(this);
 
+    timer->setInterval(15); // 设定定时器的时间间隔，可以根据需要调整
+    connect(timer, &QTimer::timeout, this, &CodeEdit::onTimeout);
 
 //    m_line_number_widget->setAttribute(Qt::WA_StyledBackground);
 
 
+
+    // 暂且无用
+    QPropertyAnimation *animation = new QPropertyAnimation(this->verticalScrollBar(), "value");
+    animation->setDuration(100);
+    animation->setStartValue(this->verticalScrollBar()->value());
+    animation->setEndValue(0);
+    animation->start();
+
+
+
+//    scrolling->setDuration(100);
+//   scrolling->start();
+
+
     // 不换行
-//    setLineWrapMode(QPlainTextEdit::NoWrap);
+//    setLineWrapMode(QPlainTextEdit::NoWrap);    // 会改变我的 mousePressEvent setValua 值
 
 
     initFont();
@@ -71,6 +87,12 @@ void CodeEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
             painter.drawText(0, top, getLineNumberAreaWidth() - 3, bottom - top, Qt::AlignRight, QString::number(block_number + 1));
         }
 
+//        block = block.next();
+//
+//        top = bottom;
+//
+//        bottom = top + (int) blockBoundingRect(block).height();
+//        ++block_number;
         block = block.next();
 
         top = bottom;
@@ -79,6 +101,12 @@ void CodeEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
         ++block_number;
     }
 }
+
+void CodeEdit::resizeEvent(QResizeEvent *event) {
+    QPlainTextEdit::resizeEvent(event);
+    lineNumberWidget->setGeometry(0, 0, getLineNumberAreaWidth(), contentsRect().height());
+}
+
 
 void CodeEdit::lineNumberAreaMousePressEvent(QMouseEvent *event)
 {
@@ -93,7 +121,6 @@ void CodeEdit::lineNumberAreaWheelEvent(QWheelEvent *event)
     } else {
         horizontalScrollBar()->setValue(horizontalScrollBar()->value() - event->angleDelta().x() / 2);
     }
-//    qDebug() << event->angleDelta().y();
 
 }
 
@@ -152,12 +179,6 @@ QString CodeEdit::getFileName()
 bool CodeEdit::checkSaved()
 {
     return isSave;
-}
-
-void CodeEdit::resizeEvent(QResizeEvent *event)
-{
-    QPlainTextEdit::resizeEvent(event);
-    lineNumberWidget->setGeometry(0, 0, getLineNumberAreaWidth(), contentsRect().height());
 }
 
 void CodeEdit::initFont()

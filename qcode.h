@@ -7,7 +7,7 @@
 class TitleBar;
 class FilePage;
 class SearchPage;
-
+class SettingsPage;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QCode; }
@@ -122,6 +122,10 @@ private:
 
     QTabWidget *tabWidget;                           // 容纳编辑页面
 
+    SettingsPage *settingsPage;                      // 设置界面
+
+    QMenu *settingsMenu;                             // 设置菜单
+
     int borderWidth;                                 // 边框像素
 
     QString filePath;                                // 文件路径
@@ -129,6 +133,7 @@ private:
     QSharedPointer<int> recordStackWidgetCount;      // 记录当前栈窗口储存大小
 
     QHash<QString, int> storeCurrentOpenFilePath;    // 存储当前页面打开的文件路径
+
 
 
 

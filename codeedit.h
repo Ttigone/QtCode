@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QPlainTextEdit>
 #include <QPainter>
+#include <QTimer>
+#include <QScrollBar>
+
 
 class LineNumber;
 
@@ -33,6 +36,28 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
 
 
+    void mouseMoveEvent(QMouseEvent *e) override {       // 鼠标移动事件
+        QPlainTextEdit::mouseMoveEvent(e);
+        const int margin = 3;
+        if (e->buttons() & Qt::LeftButton) {
+            if (e->position().y() < margin) {
+                scrollStep = -5; // 向上滚动的像素数
+                timer->start();
+            } else if (e->position().y() > height() - margin) {
+                scrollStep = 4; // 向下滚动的像素数                    // 设置 1 时是 一行行显示
+                timer->start();
+            } else {
+                timer->stop();
+            }
+        } else {
+            timer->stop();
+        }
+    }
+
+    void mouseReleaseEvent(QMouseEvent *e) override {
+        QPlainTextEdit::mouseReleaseEvent(e);
+        timer->stop();
+    }
 private:
     void initFont();
 
@@ -51,6 +76,10 @@ private slots:
 
     void updateSaveState();
 
+    void onTimeout() {
+        verticalScrollBar()->setValue(verticalScrollBar()->value() + scrollStep);  // qDeBug()
+    }
+
 
 private:
     LineNumber *lineNumberWidget;
@@ -58,6 +87,9 @@ private:
     QString fileName;
 
     bool isSave = false;
+
+    QTimer *timer;
+    int scrollStep;
 };
 
 

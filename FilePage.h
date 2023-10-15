@@ -23,7 +23,8 @@ public:
         Cpp = 1,
         h = 2,
         hpp = 3,
-        none = 4
+        none = 4,
+        unused = 5
     };
 
 
@@ -61,12 +62,12 @@ protected:
 //            return QVariant();  // 返回一个无效的QVariant来隐藏图标
             if (fileInfo.isFile()) {
                 switch (fileSuffixMap[fileSuffix]) {
-                case FileSuffix::Cpp:
-                    return QIcon(":/images/IconOf-C++.ico");
-                        break;
-                case FileSuffix::h:
-                    return QIcon(":/images/IconOf-H.ico");
-                        break;
+                    case FileSuffix::Cpp:
+                        return QIcon(":/images/IconOf-C++.ico");
+                            break;
+                    case FileSuffix::h:
+                        return QIcon(":/images/IconOf-H.ico");
+                            break;
                 default:
                     return QVariant();
                         break;
@@ -74,6 +75,11 @@ protected:
             }
         }
         return QFileSystemModel::data(index, role);
+    }
+
+public:
+    const QHash<QString, FileSuffix>& getFileSuffixMap() {
+        return fileSuffixMap;
     }
 
 private:

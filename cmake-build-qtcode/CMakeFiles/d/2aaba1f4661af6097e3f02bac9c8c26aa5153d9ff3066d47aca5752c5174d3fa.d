@@ -163,6 +163,7 @@ QtCode_autogen/timestamp: \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QMenuBar \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QPlainTextEdit \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QPushButton \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QScrollBar \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QTreeView \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QVBoxLayout \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QWidget \
@@ -184,6 +185,7 @@ QtCode_autogen/timestamp: \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qplaintextedit.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qpushbutton.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qrubberband.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qscrollbar.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qsizepolicy.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qslider.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qstyle.h \
@@ -607,6 +609,8 @@ QtCode_autogen/timestamp: \
   F:/Qt-project/N-QtCode/QtCode/searchpage.h \
   F:/Qt-project/N-QtCode/QtCode/selflabel.cpp \
   F:/Qt-project/N-QtCode/QtCode/selflabel.h \
+  F:/Qt-project/N-QtCode/QtCode/settingspage.cpp \
+  F:/Qt-project/N-QtCode/QtCode/settingspage.h \
   F:/Qt-project/N-QtCode/QtCode/titlebar.cpp \
   F:/Qt-project/N-QtCode/QtCode/titlebar.h \
   G:/JetBrains/CLion\ 2023.2/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake \
