@@ -29,9 +29,12 @@ F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_c
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qcontainerinfo.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qcontainertools_impl.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qcontiguouscache.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qcoreapplication.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qcoreapplication_platform.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qcoreevent.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qdatastream.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qdebug.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qeventloop.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qflags.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qforeach.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qgenericatomic.h \
@@ -45,6 +48,7 @@ F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_c
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qiterator.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qline.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qlist.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qlocale.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qlogging.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qmap.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtCore/qmargins.h \
@@ -111,9 +115,12 @@ F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_c
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qfontinfo.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qfontmetrics.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qglyphrun.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qguiapplication.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qguiapplication_platform.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qicon.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qimage.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qinputdevice.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qinputmethod.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qkeysequence.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qpaintdevice.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qpainter.h \
@@ -141,11 +148,13 @@ F:/Qt-project/N-QtCode/QtCode/cmake-build-qtcode/QtCode_autogen/EWIEGA46WW/moc_c
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qvectornd.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qwindowdefs.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtGui/qwindowdefs_win.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QApplication \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QPlainTextEdit \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QScrollBar \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/QWidget \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qabstractslider.h \
+  D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qapplication.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qframe.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qplaintextedit.h \
   D:/qt/qt6/6.4.3/mingw_64/include/QtWidgets/qscrollbar.h \

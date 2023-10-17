@@ -33,6 +33,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         selflabel.h selflabel.cpp
         searchpage.h searchpage.cpp
         settingspage.h settingspage.cpp
+        tabwidget.h tabwidget.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET QtCode APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

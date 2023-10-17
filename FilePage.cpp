@@ -56,26 +56,10 @@ FilePage::FilePage(QWidget *parent)
     vlayout->addWidget(openFolderBtn);
 
 
-
-    connect(openFolderBtn, &QPushButton::clicked, this, &FilePage::sloveOpenFolder);
-
-//    folderTreeView->setModel(nullptr);
-
-    // 由于是在打开文件夹之后才为 folderTreeView 设置相应的 Model 故此处信号槽连接时，没有相应的 信号发出者
-//    QObject::connect(folderTreeView->selectionModel(), &QItemSelectionModel::selectionChanged, [=](const QItemSelection &selected, const QItemSelection &deselected) {
-
-//        Q_UNUSED(deselected);
-
-//        if (selected.indexes().count() > 0) {
-//            QModelIndex selectedIndex = selected.indexes().first();
-//            auto info = fileModel->fileInfo(selectedIndex);
-//            if (info.isFile()) {
-//                QString path = fileModel->filePath(selectedIndex);
-//                qDebug() << "Selected path:" << path;
-//            }
-//        }
-//    });
-
+//    connect(openFolderBtn, &QPushButton::clicked, this, &FilePage::sloveOpenFolder);
+    connect(openFolderBtn, &QPushButton::clicked, this, [=]() {
+        sloveOpenFolder();
+    });
 
 }
 
@@ -100,11 +84,14 @@ QString& FilePage::getCurrentSelectFilePath()
     return currentSelectFilePath;
 }
 
-void FilePage::sloveOpenFolder()
+void FilePage::sloveOpenFolder(const QString& filePath)
 {
     currentRootPath = QDir::rootPath();
 
-    currentPath = QFileDialog::getExistingDirectory(this, "Open Folder", currentRootPath);
+    currentPath = filePath;
+    if (currentPath.isEmpty()) {
+        currentPath = QFileDialog::getExistingDirectory(this, "Open Folder", currentRootPath);
+    }
 
     if (currentPath.isEmpty()) {    // 未能够正确打开文件夹
         return;
@@ -136,10 +123,8 @@ void FilePage::sloveOpenFolder()
             if (info.isFile()) {     // 是一个文件
                 switch (fileModel->getFileSuffixMap()[info.suffix()]) {
                     case myFileSystemModel::FileSuffix::unused:
-                        currentSelectFilePath = "";
-                        emit selectFileIndexChanged(currentSelectFilePath);
+                        emit selectFileIndexChanged();
                         break;
-
                     default:
                         currentSelectFilePath = fileModel->filePath(selectedIndex);
                         emit selectFileIndexChanged(currentSelectFilePath);

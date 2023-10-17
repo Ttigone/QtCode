@@ -8,6 +8,7 @@
 #include "filepage.h"
 #include "searchpage.h"
 #include "settingspage.h"
+#include "tabwidget.h"
 
 #include <QVBoxLayout>
 #include <QTreeWidget>
@@ -146,7 +147,7 @@ void QCode::initWidget()
     setStackWidgetCount() = 0;
 
 
-    tabWidget = new QTabWidget(this);
+    tabWidget = new TabWidget(this);
 
 
     // 为主界面窗口设置垂直布局
@@ -240,7 +241,8 @@ void QCode::initWidget()
     QSplitter *splitter = new QSplitter(Qt::Horizontal);
 
     splitter->addWidget(stackWidget);           // 只有第一个界面与 tabWidget 的边界生效了样式表
-    splitter->addWidget(tabWidget);
+//    tabWidget->setStyleSheet("background-color:red");
+    splitter->addWidget(tabWidget);         // 无用
 
 
     splitter->setStyleSheet("QSplitter::handle {background-color: rgb(13, 13, 13);}");
@@ -249,23 +251,6 @@ void QCode::initWidget()
 
     splitter->setSizes(QList<int>() << 200 << width() - 200 - 30);
 
-
-    // 将 leftlabel 中传出一个点击 label 的信号，根据这个信号决定应该显示哪个 stackWidget
-
-//    connect(explorer, &SelfLabel::clicked, this, [=](){
-//        if (filePage->getView()->isHidden()) {
-//            filePage->getView()->show();
-//            if (stackWidget->isHidden()) {
-//                stackWidget->show();
-//            }
-//            stackWidget->setCurrentWidget(filePage->getView());
-//        } else {
-//            filePage->getView()->hide();
-//            if (!stackWidget->isHidden()) {
-//                stackWidget->hide();
-//            }
-//        }
-//    });
 
     connect(explorerLabel, &SelfLabel::clicked, this, [=](){    // 是否能简化
         if (filePage->hasFolder()) {
@@ -382,8 +367,14 @@ void QCode::initConnection()
     connect(titleBar, &TitleBar::newTextFileTriggered, this, &QCode::newTextFileTriggered);
     connect(titleBar, &TitleBar::newWindowTriggered, this, &QCode::newWindowTriggered);
 
-    connect(titleBar, &TitleBar::openFileTriggered, this, &QCode::openFileTriggered);
-    connect(titleBar, &TitleBar::openFolderTriggered, this, &QCode::openFolderTriggered);
+//    connect(titleBar, &TitleBar::openFileTriggered, this, &QCode::openFileTriggered);
+    connect(titleBar, &TitleBar::openFileTriggered, this, [=]() {
+        openFileTriggered();        // 方便复用函数
+    });
+//    connect(titleBar, &TitleBar::openFolderTriggered, this, &QCode::openFolderTriggered);
+    connect(titleBar, &TitleBar::openFolderTriggered, this, [=]() {
+        openFolderTriggered();
+    });
 
     connect(titleBar, &TitleBar::saveTriggered, this, &QCode::saveTriggered);
     connect(titleBar, &TitleBar::saveAsTriggered, this, &QCode::saveAsTriggered);
@@ -398,8 +389,10 @@ void QCode::initConnection()
 
     connect(tabWidget, &QTabWidget::tabCloseRequested, this, &QCode::tabWidgetTabCloseRequested);
 
-    connect(filePage, &FilePage::selectFileIndexChanged, this, &QCode::openProjectFile);
+    connect(filePage, &FilePage::selectFileIndexChanged, this, &QCode::openFileTriggered);
 
+    connect(tabWidget, &TabWidget::openFileTriggered, this, &QCode::openFileTriggered);
+    connect(tabWidget, &TabWidget::openFileFolderTriggered, this, &QCode::openFolderTriggered);
 
 
 }
@@ -541,9 +534,12 @@ void QCode::newWindowTriggered()
     new_window->show();
 }
 
-void QCode::openFileTriggered()
+void QCode::openFileTriggered(const QString& file)
 {
-    filePath = QFileDialog::getOpenFileName(this, "打开文件");
+    filePath = file;
+    if (filePath.isEmpty()) {
+        filePath = QFileDialog::getOpenFileName(this, "打开文件");
+    }
 
     if (storeCurrentOpenFilePath.contains(filePath)) {
         // 文件已经被打开 应切换到相应界面
@@ -572,13 +568,13 @@ void QCode::openFileTriggered()
 
 }
 
-void QCode::openFolderTriggered()  // 不能重复打开其他文件夹
+void QCode::openFolderTriggered(const QString& folder)  // 不能重复打开其他文件夹
 {
     // 需要覆盖之前已经打开的文件夹，同时打开的页面也得更换
 //    if (!filePage->hasFolder()) {
 //        filePage->sloveOpenFolder();
 //    }
-    filePage->sloveOpenFolder();
+    filePage->sloveOpenFolder(folder);
 
 }
 
@@ -726,34 +722,6 @@ void QCode::tabWidgetTabCloseRequested(int index)
     delete codeEditor;
 }
 
-// 打开项目树的文件
-void QCode::openProjectFile(const QString& projectFileName)
-{
-    if (storeCurrentOpenFilePath.contains(projectFileName)) {
-        tabWidget->setCurrentIndex(storeCurrentOpenFilePath[projectFileName]);
-    } else {
-        QFile file(projectFileName);
-
-        if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-            QMessageBox::warning(this, "警告", "无法打开此文件: " + file.errorString());
-            return;
-        }
-
-        QTextStream in(&file);
-        QString contentText = in.readAll();
-
-        CodeEdit *codeEditor = new CodeEdit(this);
-
-        codeEditor->setPlainText(contentText);
-
-        tabWidget->addTab(codeEditor, projectFileName);
-        tabWidget->setCurrentIndex(tabWidget->count() - 1);
-
-        storeCurrentOpenFilePath[projectFileName] = tabWidget->count() - 1;
-
-        file.close();
-    }
-}
 
 
 

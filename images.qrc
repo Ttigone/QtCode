@@ -10,5 +10,6 @@
         <file>images/qcexe.ico</file>
         <file>images/IconOf-C++.ico</file>
         <file>images/IconOf-H.ico</file>
+        <file>images/yes.ico</file>
     </qresource>
 </RCC>

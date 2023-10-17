@@ -23,6 +23,22 @@ TitleBar::TitleBar(QWidget *parent)
 
 //    setStyleSheet("background-color: rgba(13, 13, 13, 50);");
 
+    menuBar = new QAction(("Menu Bar"), this);
+    commandCenter = new QAction(("Command Center"), this);
+    layoutControls = new QAction(("Layout Controls"), this);
+
+    menuBar->setCheckable(true);
+    commandCenter->setCheckable(true);
+    layoutControls->setCheckable(true);
+
+//    menuBar->setIcon(QIcon(":/images/yes.ico"));
+//    commandCenter->setIcon(QIcon(":/images/yes.ico"));
+//    layoutControls->setIcon(QIcon(":/images/yes.ico"));
+
+
+
+
+
     // 设置菜单栏左侧
     initAllAction();
 
@@ -34,9 +50,6 @@ TitleBar::TitleBar(QWidget *parent)
 
     // 设置快捷键
     initShortcutKey();
-
-
-
 
 }
 
@@ -383,6 +396,12 @@ void TitleBar::initConnection()
     connect(welcome, &QAction::triggered, this, &TitleBar::welcomeTriggered);
     connect(showAllCommands, &QAction::triggered, this, &TitleBar::showAllCommandsTriggered);
     connect(about, &QAction::triggered, this, &TitleBar::aboutTriggered);
+
+    connect(menuBar, &QAction::triggered, this, &TitleBar::contextMenuBtnClicked);
+    connect(commandCenter, &QAction::triggered, this, &TitleBar::contextMenuBtnClicked);
+    connect(layoutControls, &QAction::triggered, this, &TitleBar::contextMenuBtnClicked);
+
+
 }
 
 void TitleBar::initShortcutKey()
@@ -419,6 +438,19 @@ void TitleBar::mousePressEvent(QMouseEvent *event)
 #else
 #endif
 }
+
+void TitleBar::contextMenuEvent(QContextMenuEvent *event) {
+    QWidget::contextMenuEvent(event);
+
+    QMenu tem;
+    tem.addAction(menuBar);
+    tem.addAction(commandCenter);
+    tem.addAction(layoutControls);
+
+    tem.exec(QCursor::pos());
+
+}
+
 
 //使用事件过滤器监听标题栏所在的窗体，所以当窗体标题、图标等信息发生改变时，标题栏也应该随之改变
 bool TitleBar::eventFilter(QObject *obj, QEvent *event)
@@ -487,20 +519,15 @@ void TitleBar::onClicked()
     }
 }
 
-//void titleBar::onMenuHovered(QAction *action)
-//{
-//    m_current_hovered_action = action;
-//    m_hover_timer->start(500);               // 延迟 500 毫秒
-//}
+void TitleBar::contextMenuBtnClicked() {
+    if ((QAction *)sender() == menuBar) {
 
-//void titleBar::showMenu()
-//{
-//    if (m_current_hovered_action && !m_hover_timer->isActive()) {
-//        m_current_hovered_action->menu()->popup(QCursor::pos());
-//    }
-//}
+    } else if ((QAction *)sender() == commandCenter) {
 
+    } else if ((QAction *)sender() == layoutControls) {
 
+    }
+}
 
 //最大化/还原
 void TitleBar::updateMaximize()
@@ -528,4 +555,5 @@ void TitleBar::updateMaximize()
         maximizeButton->setStyle(QApplication::style());
     }
 }
+
 

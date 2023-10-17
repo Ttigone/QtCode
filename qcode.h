@@ -2,12 +2,12 @@
 #define QCODE_H
 
 #include <QWidget>
-#include <qtabwidget.h>
 
 class TitleBar;
 class FilePage;
 class SearchPage;
 class SettingsPage;
+class TabWidget;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QCode; }
@@ -16,7 +16,6 @@ QT_END_NAMESPACE
 class QCode : public QWidget
 {
     Q_OBJECT
-    friend class titleBar;
 
 public:
     QCode(QWidget *parent = nullptr);
@@ -61,9 +60,9 @@ private slots:
 
     void newWindowTriggered();      // 处理 打开新窗口
 
-    void openFileTriggered();       // 处理 打开文件
+    void openFileTriggered(const QString& file = "");       // 处理 打开文件
 
-    void openFolderTriggered();     // 处理 打开文件夹
+    void openFolderTriggered(const QString& folder = "");     // 处理 打开文件夹
 
     void saveTriggered();            // 处理 保存文件
 
@@ -101,10 +100,7 @@ private slots:
 
     void aboutTriggered();           // 处理 关于界面
 
-
     void tabWidgetTabCloseRequested(int index);  // 处理 关闭标签页
-
-    void openProjectFile(const QString& projectFileName);          // 处理 打开项目文件
 
 signals:
 
@@ -120,7 +116,7 @@ private:
 
     SearchPage *searchPage;                          // 搜索页面
 
-    QTabWidget *tabWidget;                           // 容纳编辑页面
+    TabWidget *tabWidget;                           // 容纳编辑页面
 
     SettingsPage *settingsPage;                      // 设置界面
 

@@ -107,12 +107,12 @@ public:
 
 public slots:
 
-    void sloveOpenFolder();
+    void sloveOpenFolder(const QString& filePath = "");    // 添加路径
 
 signals:
     void openFolder();
 
-    void selectFileIndexChanged(QString&);
+    void selectFileIndexChanged(const QString& file = "");
 
 private:
     QString currentRootPath;

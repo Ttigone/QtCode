@@ -17,48 +17,33 @@ public:
     ~TitleBar();
 
     void initIcon();
-
     void initFile();
-
     void initEdit();
-
     void initSelection();
-
     void initView();
-
     void initHelp();
-
     void initBtn();
-
     void initMenu();
-
     void initWidget();
-
     void initAllAction();
-
     void initConnection();
-
     void initShortcutKey();
-protected:
 
+protected:
     // 双击标题栏进行界面的最大化/还原
     void mouseDoubleClickEvent(QMouseEvent *event) override;
-
     // 进行界面的拖动
     void mousePressEvent(QMouseEvent *event) override;   // 会阻碍 btn 的 样式表 hover 事件
-
+    void contextMenuEvent(QContextMenuEvent *event) override;
     // 设置界面标题与图标
     bool eventFilter(QObject *obj, QEvent *event) override;
-
 
 private slots:
 
     // 进行最小化、最大化/还原、关闭操作
     void onClicked();
 
-    //    void onMenuHovered(QAction *action);
-
-    //    void showMenu();
+    void contextMenuBtnClicked();
 
 signals:
     // 新建文本文件信号
@@ -111,7 +96,6 @@ private:
     // 最大化/还原
     void updateMaximize();
 
-
 private:
 
     QMenuBar *menu;             // 菜单栏
@@ -152,9 +136,7 @@ private:
     QAction *showAllCommands;
     QAction *about;
 
-
 private:
-
     // 顶层级的 QMenu
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -166,13 +148,18 @@ private:
     QMenu *openRecentMenu;
 
 private:
-
     // 最右侧功能按钮
     QLabel *iconLabel; //标题栏图标
     QLabel *titleLabel; //标题栏标题
     QPushButton *minimizeButton; //最小化按钮
     QPushButton *maximizeButton; //最大化/还原按钮
     QPushButton *closeButton; //关闭按钮
+
+private:
+
+    QAction *menuBar;
+    QAction *commandCenter;
+    QAction *layoutControls;
 
 private:
 

@@ -1,7 +1,6 @@
 #include "codeedit.h"
 #include "highlighter.h"
 
-#include <QScrollBar>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextBlock>
@@ -106,6 +105,37 @@ void CodeEdit::resizeEvent(QResizeEvent *event) {
     QPlainTextEdit::resizeEvent(event);
     lineNumberWidget->setGeometry(0, 0, getLineNumberAreaWidth(), contentsRect().height());
 }
+
+void CodeEdit::mouseMoveEvent(QMouseEvent *event) {       // 鼠标移动事件
+    QPlainTextEdit::mouseMoveEvent(event);
+    const int margin = 3;
+    if (event->buttons() & Qt::LeftButton) {
+        if (event->position().y() < margin) {
+        scrollStep = -5; // 向上滚动的像素数
+        timer->start();
+        } else if (event->position().y() > height() - margin) {
+            scrollStep = 4; // 向下滚动的像素数                    // 设置 1 时是 一行行显示
+            timer->start();
+        } else {
+            timer->stop();
+        }
+    } else {
+        timer->stop();
+    }
+}
+
+//    void CodeEdit::wheelEvent(QWheelEvent *event) {            // BUG painter 绘制出现问题
+//        if (QApplication::keyboardModifiers() == Qt::ControlModifier) {
+//            if (event->angleDelta().y() > 0) {
+//                zoomIn();
+//            } else {
+//                zoomOut();
+//            }
+//        } else {
+//            QPlainTextEdit::wheelEvent(event);
+//        }
+//
+//    }
 
 
 void CodeEdit::lineNumberAreaMousePressEvent(QMouseEvent *event)

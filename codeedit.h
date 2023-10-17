@@ -2,11 +2,11 @@
 #define CODEEDIT_H
 
 #include <QWidget>
+#include <QApplication>
 #include <QPlainTextEdit>
 #include <QPainter>
 #include <QTimer>
 #include <QScrollBar>
-
 
 class LineNumber;
 
@@ -34,30 +34,24 @@ public:
     bool checkSaved();
 protected:
     void resizeEvent(QResizeEvent *event) override;
-
-
-    void mouseMoveEvent(QMouseEvent *e) override {       // 鼠标移动事件
-        QPlainTextEdit::mouseMoveEvent(e);
-        const int margin = 3;
-        if (e->buttons() & Qt::LeftButton) {
-            if (e->position().y() < margin) {
-                scrollStep = -5; // 向上滚动的像素数
-                timer->start();
-            } else if (e->position().y() > height() - margin) {
-                scrollStep = 4; // 向下滚动的像素数                    // 设置 1 时是 一行行显示
-                timer->start();
-            } else {
-                timer->stop();
-            }
-        } else {
-            timer->stop();
-        }
-    }
-
-    void mouseReleaseEvent(QMouseEvent *e) override {
-        QPlainTextEdit::mouseReleaseEvent(e);
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override {
+        QPlainTextEdit::mouseReleaseEvent(event);
         timer->stop();
     }
+
+//    void wheelEvent(QWheelEvent *event) override {            // BUG painter 绘制出现问题
+//        if (QApplication::keyboardModifiers() == Qt::ControlModifier) {
+//            if (event->angleDelta().y() > 0) {
+//                zoomIn();
+//            } else {
+//                zoomOut();
+//            }
+//        } else {
+//            QPlainTextEdit::wheelEvent(event);
+//        }
+//    }
+
 private:
     void initFont();
 
