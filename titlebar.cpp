@@ -4,7 +4,7 @@
 #include <QPixmap>
 #include <qmessagebox.h>
 
-#include "titleBar.h"
+#include "titlebar.h"
 
 //调用WIN API需要用到的头文件与库
 #ifdef Q_OS_WIN
@@ -30,6 +30,8 @@ TitleBar::TitleBar(QWidget *parent)
     menuBar->setCheckable(true);
     commandCenter->setCheckable(true);
     layoutControls->setCheckable(true);
+
+    setStyleSheet("background-color:grey");
 
 //    menuBar->setIcon(QIcon(":/images/yes.ico"));
 //    commandCenter->setIcon(QIcon(":/images/yes.ico"));
@@ -419,24 +421,39 @@ void TitleBar::mouseDoubleClickEvent(QMouseEvent *event)
     Q_UNUSED(event); //没有实质性的作用，只是用来允许event可以不使用，用来避免编译器警告
 
     emit maximizeButton->clicked();
+//    update();
 }
 
 //进行界面的拖动  [一般情况下，是界面随着标题栏的移动而移动，所以我们将事件写在标题栏中比较合理]
 void TitleBar::mousePressEvent(QMouseEvent *event)
 {
 //    QAbstractButton::mousePressEvent(event);
-#ifdef Q_OS_WIN
-    if (ReleaseCapture())
-    {
-        QWidget *pWindow = this->window();
-        if (pWindow->isWindow())
-        {
-            SendMessage(HWND(pWindow->winId()), WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
-        }
-    }
-    event->ignore();
-#else
-#endif
+//#ifdef Q_OS_WIN
+//    if (ReleaseCapture())
+//    {
+//        QWidget *pWindow = this->window();
+//        if (pWindow->isWindow())
+//        {
+//            SendMessage(HWND(pWindow->winId()), WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+//        }
+//    }
+//    event->ignore();
+//#else
+//#endif
+
+//    windowPoint = this->pos().toPointF();  // 窗口坐标
+    windowPoint = qobject_cast<QWidget *>(parent())->pos().toPointF();  // 窗口坐标
+    mousePoint = event->globalPosition();       // 鼠标坐标
+    distanceForWindowAndMouse = mousePoint - windowPoint;             // 鼠标点击处相对于窗口左上角的坐标
+//    qDebug() << distanceForWindowAndMouse.x() << distanceForWindowAndMouse.y();
+    QWidget::mousePressEvent(event);
+}
+
+void TitleBar::mouseMoveEvent(QMouseEvent *event)
+{
+//    this->move((event->globalPosition() - distanceForWindowAndMouse).toPoint());
+    qobject_cast<QWidget *>(parent())->move((event->globalPosition() - distanceForWindowAndMouse).toPoint());
+//    qDebug() << event->globalPosition().x() << event->globalPosition().y();
 }
 
 void TitleBar::contextMenuEvent(QContextMenuEvent *event) {
@@ -496,6 +513,7 @@ bool TitleBar::eventFilter(QObject *obj, QEvent *event)
 //进行最小化、最大化/还原、关闭操作
 void TitleBar::onClicked()
 {
+//    update();
     //QObject::Sender()返回发送信号的对象的指针，返回类型为QObject *
     QPushButton *pButton = qobject_cast<QPushButton *>(sender());
 

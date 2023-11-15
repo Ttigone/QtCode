@@ -34,11 +34,13 @@ public:
     bool checkSaved();
 protected:
     void resizeEvent(QResizeEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override {
-        QPlainTextEdit::mouseReleaseEvent(event);
-        timer->stop();
-    }
+//    void mouseMoveEvent(QMouseEvent *event) override;
+//    void mouseReleaseEvent(QMouseEvent *event) override {
+//        QPlainTextEdit::mouseReleaseEvent(event);
+//        verticalScrollBar()->setValue(verticalScrollBar()->value() + scrollStep);  // qDeBug()
+//        verticalScrollBar()->setValue(verticalScrollBar()->value() + scrollStep);  // qDeBug()
+//        timer->stop();
+//    }
 
 //    void wheelEvent(QWheelEvent *event) override {            // BUG painter 绘制出现问题
 //        if (QApplication::keyboardModifiers() == Qt::ControlModifier) {
@@ -73,6 +75,11 @@ private slots:
     void onTimeout() {
         verticalScrollBar()->setValue(verticalScrollBar()->value() + scrollStep);  // qDeBug()
     }
+signals:
+    void scrollStepChanged(int scrollStep);
+
+
+
 
 
 private:

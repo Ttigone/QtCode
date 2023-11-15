@@ -9,16 +9,21 @@
 CodeEdit::CodeEdit(QWidget *parent)
     : QPlainTextEdit{parent}, lineNumberWidget(new LineNumber(this)), timer(new QTimer(this)), scrollStep(0)
 {
+//    verticalScrollBar()->setValue(39);
 
-
-    timer->setInterval(15); // 设定定时器的时间间隔，可以根据需要调整
-    connect(timer, &QTimer::timeout, this, &CodeEdit::onTimeout);
+//    connect(this, &CodeEdit::scrollStepChanged, this, [=](int scrollStep) {   // 滚动条带动文本内容？
+//
+////        verticalScrollBar()->setValue(verticalScrollBar()->value() + scrollStep);  // qDeBug()
+//        verticalScrollBar()->setValue(verticalScrollBar()->value() + scrollStep);  // qDeBug()
+//    });
+//    timer->setInterval(15); // 设定定时器的时间间隔，可以根据需要调整
+//    connect(timer, &QTimer::timeout, this, &CodeEdit::onTimeout);
 
 //    m_line_number_widget->setAttribute(Qt::WA_StyledBackground);
 
 
 
-    // 暂且无用
+//     暂且无用
     QPropertyAnimation *animation = new QPropertyAnimation(this->verticalScrollBar(), "value");
     animation->setDuration(100);
     animation->setStartValue(this->verticalScrollBar()->value());
@@ -32,7 +37,7 @@ CodeEdit::CodeEdit(QWidget *parent)
 
 
     // 不换行
-//    setLineWrapMode(QPlainTextEdit::NoWrap);    // 会改变我的 mousePressEvent setValua 值
+    setLineWrapMode(QPlainTextEdit::NoWrap);    // 会改变我的 mousePressEvent setValua 值
 
 
     initFont();
@@ -45,7 +50,6 @@ CodeEdit::CodeEdit(QWidget *parent)
 
     updateLineNumberAreaWidth();
 
-//    setLineWrapMode(QPlainTextEdit::NoWrap)
 }
 
 CodeEdit::~CodeEdit() noexcept
@@ -106,24 +110,42 @@ void CodeEdit::resizeEvent(QResizeEvent *event) {
     lineNumberWidget->setGeometry(0, 0, getLineNumberAreaWidth(), contentsRect().height());
 }
 
-void CodeEdit::mouseMoveEvent(QMouseEvent *event) {       // 鼠标移动事件
-    QPlainTextEdit::mouseMoveEvent(event);
-    const int margin = 3;
-    if (event->buttons() & Qt::LeftButton) {
-        if (event->position().y() < margin) {
-        scrollStep = -5; // 向上滚动的像素数
-        timer->start();
-        } else if (event->position().y() > height() - margin) {
-            scrollStep = 4; // 向下滚动的像素数                    // 设置 1 时是 一行行显示
-            timer->start();
-        } else {
-            timer->stop();
-        }
-    } else {
-        timer->stop();
-    }
-}
+//void CodeEdit::mouseMoveEvent(QMouseEvent *event) {       // 鼠标移动事件   实时记录 scrollstep 的值，通过 timer?
+//    QPlainTextEdit::mouseMoveEvent(event);
+//    const int margin = 3;
+//    if (event->buttons() & Qt::LeftButton) {
+//        if (event->position().y() < margin) {
+////        scrollStep = -2; // 向上滚动的像素数
+//        scrollStep = -1;
+////        emit scrollStepChanged(scrollStep);
+//        timer->start();
+//        } else if (event->position().y() > (height() + margin)) {
+//            scrollStep = 5; // 向下滚动的像素数                    // 设置 1 时是 一行行显示
+////            emit scrollStepChanged(scrollStep++);
+////            emit scrollStepChanged(scrollStep);
+//            timer->start();
+//        } else {
+//            timer->stop();
+//        }
+//    } else {
+//        timer->stop();
+//    }
+//}
 
+
+//    if (event->buttons() & Qt::LeftButton) {
+//        if (event->position().y() < margin) {
+//        scrollStep = -5; // 向上滚动的像素数
+////        timer->start();
+//        } else if (event->position().y() > height() - margin) {
+//            scrollStep = 4; // 向下滚动的像素数                    // 设置 1 时是 一行行显示
+////            timer->start();
+//        } else {
+////            timer->stop();
+//        }
+//    } else {
+////        timer->stop();
+//    }
 //    void CodeEdit::wheelEvent(QWheelEvent *event) {            // BUG painter 绘制出现问题
 //        if (QApplication::keyboardModifiers() == Qt::ControlModifier) {
 //            if (event->angleDelta().y() > 0) {

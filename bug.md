@@ -11,7 +11,6 @@ Bug
  - [ ] 全屏的时候向下滑动代码编辑区，显示卡顿
  - [ ] settingMenu 的 Settings 和 keyboard Shortcuts ，从上往下滑动时会出现蓝条，再次从下往上滑动时蓝条会出现
  - [ ] titleBar 的 Menu 被消除了
-
 Todo
  - [ ] 检索功能
  - [ ] 项目文件目录树
@@ -24,4 +23,3 @@ Todo
  - [ ] command Center 显示时是一个命令行，位于界面正上方，隐藏时显示 文件名-文件夹名-app名
  - [ ] 布局管理器
  - [ ] 单文件拖动事件  在 FilePage 和 CodeEdit 均可
- - [ ] 文件夹也能拖动

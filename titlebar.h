@@ -8,6 +8,8 @@
 #include <QPushButton>
 #include <QTimer>
 
+#include <QMouseEvent>
+
 class TitleBar : public QWidget
 {
     Q_OBJECT
@@ -34,12 +36,13 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     // 进行界面的拖动
     void mousePressEvent(QMouseEvent *event) override;   // 会阻碍 btn 的 样式表 hover 事件
+    void mouseMoveEvent(QMouseEvent *event) override;
+
     void contextMenuEvent(QContextMenuEvent *event) override;
     // 设置界面标题与图标
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 private slots:
-
     // 进行最小化、最大化/还原、关闭操作
     void onClicked();
 
@@ -92,12 +95,10 @@ signals:
     void aboutTriggered();
 
 private:
-
     // 最大化/还原
     void updateMaximize();
 
 private:
-
     QMenuBar *menu;             // 菜单栏
 
 
@@ -115,7 +116,6 @@ private:
     QAction *closeWindow;
 
 
-
     // m_edit 下属的 QAction
     QAction *undo;
     QAction *redo;
@@ -127,10 +127,8 @@ private:
 
     // m_selection 下属的 QAction
     QAction *selectAll;
-
     // m_view 下属的 QAction
     QAction *commandPalette;
-
     // m_help 下属的 QAction
     QAction *welcome;
     QAction *showAllCommands;
@@ -156,13 +154,16 @@ private:
     QPushButton *closeButton; //关闭按钮
 
 private:
-
     QAction *menuBar;
     QAction *commandCenter;
     QAction *layoutControls;
 
 private:
+    QPointF windowPoint;
+    QPointF mousePoint;
+    QPointF distanceForWindowAndMouse;
 
+private:
     QHBoxLayout *layout;
 
 };

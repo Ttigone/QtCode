@@ -15,8 +15,13 @@ TabWidget::TabWidget(QWidget *parent)
     : QTabWidget{parent}
 {
     setAcceptDrops(true);
+
+//    setStyleSheet("TabWidget { border: 20px solid red; }");
+
+
 }
 void TabWidget::dragEnterEvent(QDragEnterEvent *event) {
+//    qDebug() << "A";
     if (event->mimeData()->hasUrls()) // 如果拖入的是URLs（文件或目录）
     {
         event->acceptProposedAction();

@@ -27,7 +27,6 @@ public:
 
     SelfLabel* getLabel(size_t);
 
-//    static int r;
 
 signals:
     void labelChanged(int);
