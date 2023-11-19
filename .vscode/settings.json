@@ -1,0 +1,13 @@
+{
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "aiXcoder.showTrayIcon": true,
+    "DevChat.DevChatPath": "C:\\Users\\cssss\\.chat\\mamba\\envs\\devchat\\Scripts\\devchat",
+    "devchat.defaultModel": "gpt-3.5-turbo",
+    "files.associations": {
+        "*.md": "markdown",
+        "qevent": "cpp",
+        "qwidget": "cpp",
+        "qframe": "cpp",
+        "new": "cpp"
+    }
+}

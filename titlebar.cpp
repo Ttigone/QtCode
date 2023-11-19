@@ -19,6 +19,7 @@ TitleBar::TitleBar(QWidget *parent)
 {
     setFixedHeight(23);  // 高度设定固定大小
 
+    setContentsMargins(0, 0 ,0, 0);
 //    setAttribute(Qt::WA_StyledBackground);
 
 //    setStyleSheet("background-color: rgba(13, 13, 13, 50);");
@@ -62,9 +63,9 @@ TitleBar::~TitleBar()
 
 void TitleBar::initIcon()
 {
-    iconLabel = new QLabel(this);    // 有 bug
+    iconLabel = new QLabel();    // 有 bug
     //初始化图标Label
-    iconLabel->setFixedSize(20, 20);
+    iconLabel->setFixedSize(23, 23);
     iconLabel->setScaledContents(true);
     QPixmap pixmap(":/images/qc.png");
     iconLabel->setPixmap(pixmap);
@@ -73,6 +74,8 @@ void TitleBar::initIcon()
 
 void TitleBar::initFile()
 {
+
+//    fileMenu->setFixedSize(200, 200);
     // 创建专属菜单
     fileMenu = new QMenu("File", this);
     fileMenu->setStyleSheet(
@@ -89,6 +92,7 @@ void TitleBar::initFile()
                             "QMenu::item:selected { background-color: rgba(13, 13, 13, 50); }"    // 选择相应项，底色改变
     );  // 设置样式表只能出现一次  // 能够去掉边界   // 先后顺序不影响
 
+
     // 新建 第一部分 QAction
     newTextFile = new QAction("New Text File", this);
     newFile = new QAction("New File...", this);
@@ -98,10 +102,8 @@ void TitleBar::initFile()
     fileMenu->addAction(newFile);
     fileMenu->addAction(newWindow);
 
-
     // 添加分割符
     fileMenu->addSeparator();
-
 
 
     // 新建 第二部分 QAction
@@ -127,10 +129,7 @@ void TitleBar::initFile()
     //    m_open_recent_menu->addAction(m_clear_all_recent);
     openRecent->setMenu(openRecentMenu);
 
-
     fileMenu->addAction(openRecent);
-
-
 
     // 添加分隔符
     fileMenu->addSeparator();
@@ -160,6 +159,9 @@ void TitleBar::initEdit()
 //            "QMenu:: icon { width: 0px; }"
             "QMenu::item { padding-left: 0px; }" // 单独设置有效
             "QMenu::item:hover { background-color: red; }"
+            "QMenu::item:hover { "
+            "    background-color: interlinear(x1:0, y1:0, x2:0, y2:1, stop:0 transparent, stop:0.85 transparent, stop:0.86 red , stop:1 yellow); "
+            "}"
     );
 
     undo = new QAction("Uodo", this);
@@ -317,13 +319,17 @@ void TitleBar::initMenu()
 void TitleBar::initWidget()
 {
     //标题栏布局
-    layout = new QHBoxLayout(this);
+    layout = new QHBoxLayout(this);  // 水平布局
+    layout->setSpacing(0);
     layout->addWidget(iconLabel);
-    layout->setSpacing(5);             // 间隙
+    // 无效
+//    layout->addStrut(300);
+//    layout->setSpacing(100);             // 间隙
+    // layout->addStretch();
 
 //    layout->setSpacing(5);             // 间隙
 
-    layout->addWidget(menu);         // 添加菜单栏
+   layout->addWidget(menu);         // 添加菜单栏
 
     layout->addStretch(1);             // 增加一个弹簧
 
@@ -331,7 +337,7 @@ void TitleBar::initWidget()
     layout->addWidget(maximizeButton);
     layout->addWidget(closeButton);
     layout->setSpacing(0);
-    layout->setContentsMargins(5, 0, 5, 0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     this->setLayout(layout);
 }
@@ -573,5 +579,3 @@ void TitleBar::updateMaximize()
         maximizeButton->setStyle(QApplication::style());
     }
 }
-
-

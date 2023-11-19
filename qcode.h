@@ -4,6 +4,7 @@
 #include <QFrame>
 #include <QWidget>
 
+class QVBoxLayout;
 class TitleBar;
 class FilePage;
 class SearchPage;
@@ -45,6 +46,8 @@ public:
     void resizeEvent(QResizeEvent *event) override;
 
 public:
+    void setMargin(int left, int top, int right, int bottom);
+    
     int& setStackWidgetCount();
     int getStackWidgetCount();
 
@@ -89,6 +92,7 @@ private:
     QSharedPointer<int> recordStackWidgetCount;      // 记录当前栈窗口储存大小
     QHash<QString, int> storeCurrentOpenFilePath;    // 存储当前页面打开的文件路径
 
+    QVBoxLayout *vLayout;          // 为主界面窗口设置垂直布局
 };
 #endif // QCODE_H
 

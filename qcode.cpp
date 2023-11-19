@@ -51,7 +51,6 @@ QCode::QCode(QWidget *parent)
     initWidget();
     // 初始化信号槽连接
     initConnection();
-
     // 初始化最近菜单
     initRecentMenu();
 
@@ -127,7 +126,7 @@ void QCode::initWidget()
 
 
 //     设置无标题框
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::FramelessWindowHint);
 
 //    setWindowOpacity(0.8);  // 设置透明度
 
@@ -137,7 +136,7 @@ void QCode::initWidget()
 //    QToolTip::setShowDelay(10);
 
 
-    setAttribute(Qt::WA_StyledBackground);
+//    setAttribute(Qt::WA_StyledBackground);
 
     // 设置标题图标
     QIcon windowIcon(":/images/qc.png");
@@ -151,14 +150,19 @@ void QCode::initWidget()
 
     tabWidget = new TabWidget(this);
 
-
     // 为主界面窗口设置垂直布局
-    QVBoxLayout *vLayout = new QVBoxLayout;
+    vLayout = new QVBoxLayout;
 
     // 自定义标题框
-    titleBar = new TitleBar(this);
+    // titleBar = new TitleBar(this);           // 不同的情况   无法展开标题栏
+   titleBar = new TitleBar();              // 底部会有一个黑方框
     // 安装过滤器
-//    installEventFilter(titleBar);
+    //    installEventFilter(titleBar);
+    
+    // 设置底色 
+    QWidget *widget = new QWidget();
+
+
 
     // 添加第一个 widget
     vLayout->addWidget(titleBar);
@@ -167,16 +171,18 @@ void QCode::initWidget()
 
     line->setFrameShape(QFrame::HLine);//水平分割线
     line->setFrameShadow(QFrame::Raised);//设置线的阴影效果
-    line->move(0,titleBar->height() + 1);
+//    line->move(0,titleBar->height() + 1);
+    // line->move(0,titleBar->height() - 1);
     line->resize(this->width(),1);  // 不能实时动态更新，窗口放大时
 
-//    vLayout->addWidget(f);
-
+    vLayout->addWidget(line);
 
     // 设置间隙
     vLayout->setSpacing(0);  // 与下一部件的间距
 
-    vLayout->setContentsMargins(5, 0, 5, 5);  // left top right bottom 边缘间距像素
+//    vLayout->setContentsMargins(5, 0, 5, 5);  // left top right bottom 边缘间距像素
+    // vLayout->setContentsMargins(50, 50, 50, 50);  // left top right bottom 边缘间距像素
+    setMargin(0, 0, 0, 0);
 
     // 水平布局
     QHBoxLayout *hLayout = new QHBoxLayout;
@@ -291,10 +297,7 @@ void QCode::initWidget()
 //    tabWidget->setStyleSheet("background-color:red");
 //    tabWidget->setStyleSheet("TabWidget { border: 20px solid red; }");
 //    splitter->addWidget(tabWidget);         // 无用
-//    splitter->addWidget(tem);\
-
-
-
+//    splitter->addWidget(tem);
 
 
     splitter->setStyleSheet("QSplitter::handle {background-color: rgb(13, 13, 13);}");
@@ -302,7 +305,6 @@ void QCode::initWidget()
     splitter->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     splitter->setSizes(QList<int>() << 200 << width() - 200 - 30);
-
 
     connect(explorerLabel, &SelfLabel::clicked, this, [=](){    // 是否能简化
         if (filePage->hasFolder()) {
@@ -353,8 +355,6 @@ void QCode::initWidget()
             }
         }
     });
-
-
 
     settingsMenu = new QMenu(this);
 
@@ -438,14 +438,12 @@ void QCode::initConnection()
     connect(titleBar, &TitleBar::pasteTriggered, this, &QCode::pasteTriggered);
     connect(titleBar, &TitleBar::aboutTriggered, this, &QCode::aboutTriggered);
 
-
     connect(filePage, &FilePage::selectFileIndexChanged, this, &QCode::openFileTriggered);
     connect(filePage, &FilePage::openFileFromDrag, this, &QCode::openFileTriggered);
 
     connect(tabWidget, &QTabWidget::tabCloseRequested, this, &QCode::tabWidgetTabCloseRequested);
     connect(tabWidget, &TabWidget::openFileTriggered, this, &QCode::openFileTriggered);
     connect(tabWidget, &TabWidget::openFileFolderTriggered, this, &QCode::openFolderTriggered);
-
 
 }
 
@@ -540,11 +538,9 @@ void QCode::initRecentMenu()
     // BUG
     QList<QString> lists = getHistory();          // 获取曾经未删除历史记录
 
-
     for (int i = lists.size() - 1; i >= 0; --i) {
         recent->addAction(lists.at(i), this, &QCode::openRecentFile);  // 添加新记录
     }
-
 
     if (lists.size() > 0) {
         recent->addSeparator();
@@ -559,14 +555,13 @@ int QCode::getCurrentTableCount()
 
 void QCode::resizeEvent(QResizeEvent *event)
 {
-//    qDebug() << "a";
     // 窗口改变时其事件响应
-//    titleBar->update();
-//    update();
     line->resize(width(), 1);
-//    update();
+}
 
 
+void QCode::setMargin(int left, int top, int right, int bottom) {
+    vLayout->setContentsMargins(left, top, right, bottom);  // left top right bottom 边缘间距像素
 }
 
 int& QCode::setStackWidgetCount()
@@ -643,12 +638,10 @@ void QCode::openFolderTriggered(const QString& folder)  // 不能重复打开其
 //        filePage->sloveOpenFolder();
 //    }
     filePage->sloveOpenFolder(folder);
-
 }
 
 void QCode::saveTriggered()
 {
-
     CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
 
     if (codeEditor) {
@@ -659,14 +652,10 @@ void QCode::saveTriggered()
             initRecentMenu();
         }
     }
-
-
 }
 
 void QCode::saveAsTriggered()
 {
-
-
     CodeEdit *codeEditor = (CodeEdit *)tabWidget->currentWidget();
 
     if (codeEditor) {
@@ -677,9 +666,6 @@ void QCode::saveAsTriggered()
             initRecentMenu();
         }
     }
-
-
-
 }
 
 void QCode::closeEditorTriggered()

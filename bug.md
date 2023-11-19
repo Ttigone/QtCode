@@ -11,6 +11,7 @@ Bug
  - [ ] 全屏的时候向下滑动代码编辑区，显示卡顿
  - [ ] settingMenu 的 Settings 和 keyboard Shortcuts ，从上往下滑动时会出现蓝条，再次从下往上滑动时蓝条会出现
  - [ ] titleBar 的 Menu 被消除了
+ - [ ] 标题栏右键也能拖动
 Todo
  - [ ] 检索功能
  - [ ] 项目文件目录树

@@ -26,6 +26,7 @@ public:
     void initHelp();
     void initBtn();
     void initMenu();
+
     void initWidget();
     void initAllAction();
     void initConnection();
